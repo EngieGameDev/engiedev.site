@@ -27,19 +27,25 @@ h1,h2,h3{font-family:'Baloo 2',sans-serif;line-height:1.15;font-weight:800}
 
 /* NAV */
 .nav{position:sticky;top:0;z-index:100;background:rgba(244,234,212,.85);backdrop-filter:blur(10px);border-bottom:2px solid rgba(58,42,28,.08)}
-.nav-in{max-width:1000px;margin:0 auto;padding:13px 24px;display:flex;align-items:center;justify-content:space-between}
+.nav-in{max-width:1000px;margin:0 auto;padding:13px 24px;display:flex;align-items:center;justify-content:space-between;gap:12px}
 .brand{display:flex;align-items:center;gap:10px;font-family:'Baloo 2',sans-serif;font-weight:800;font-size:1.2rem;color:var(--teal-deep)}
 .brand-badge{
   width:40px;height:40px;border-radius:13px;
   object-fit:cover;
   transform:rotate(-4deg);
 }
+.nav-right{display:flex;align-items:center;gap:10px}
 .nav-links{display:flex;align-items:center;gap:4px}
 .nav-links a{padding:8px 14px;border-radius:12px;font-weight:700;font-size:.92rem;color:var(--soft);transition:.2s}
 .nav-links a:hover{color:var(--teal-deep);background:rgba(224,117,74,.12)}
 .nav-toggle{display:none}
 .burger{display:none;cursor:pointer;width:30px;height:30px;flex-direction:column;justify-content:center;gap:5px;background:none;border:none}
 .burger span{display:block;width:24px;height:3px;background:var(--ink);border-radius:3px;margin:0 auto}
+
+/* LANG TOGGLE */
+.lang-toggle{display:inline-flex;align-items:center;background:rgba(42,93,87,.10);border-radius:12px;padding:3px;font-family:'Baloo 2',sans-serif}
+.lang-toggle button{background:none;border:none;cursor:pointer;padding:5px 11px;border-radius:9px;color:var(--soft);transition:.2s;font-family:inherit;font-weight:700;font-size:.82rem}
+.lang-toggle button.active{background:var(--teal-deep);color:var(--cream)}
 
 /* BUTTONS */
 .btn{display:inline-flex;align-items:center;gap:8px;font-family:'Baloo 2',sans-serif;font-weight:700;padding:13px 26px;border:none;cursor:pointer;border-radius:16px;font-size:1rem;transition:.15s}
@@ -83,7 +89,7 @@ h1,h2,h3{font-family:'Baloo 2',sans-serif;line-height:1.15;font-weight:800}
 .games-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
 .game{background:var(--teal);border-radius:var(--radius);overflow:hidden;box-shadow:0 16px 40px -18px rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.06);transition:transform .35s,box-shadow .35s}
 .game:hover{transform:translateY(-6px);box-shadow:0 24px 50px -18px rgba(0,0,0,.6)}
-.game img{width:100%;aspect-ratio:16/10;object-fit:cover}
+.game img,.game video{width:100%;aspect-ratio:16/9;object-fit:cover}
 .game-body{padding:20px 22px 24px}
 .game-tags{display:flex;gap:7px;margin-bottom:10px;flex-wrap:wrap}
 .game-tag{font-size:.72rem;font-weight:800;padding:3px 11px;border-radius:10px;background:rgba(224,117,74,.18);color:var(--gold);font-family:'Baloo 2',sans-serif}
@@ -98,9 +104,8 @@ h1,h2,h3{font-family:'Baloo 2',sans-serif;line-height:1.15;font-weight:800}
 .social::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform .3s}
 .social:hover{transform:translateY(-6px);box-shadow:0 16px 34px -12px rgba(29,64,59,.22)}
 .social:hover::before{transform:scaleX(1)}
-.social-ico{width:52px;height:52px;border-radius:15px;display:grid;place-items:center;background:var(--accent);color:#fff;transition:transform .3s}
-.social-ico svg{width:26px;height:26px;fill:currentColor}
-.social:hover .social-ico{transform:rotate(-8deg) scale(1.08)}
+.social .fa-brands{font-size:28px;color:#fff;background:var(--accent);width:52px;height:52px;border-radius:15px;display:grid;place-items:center;transition:transform .3s}
+.social:hover .fa-brands{transform:rotate(-8deg) scale(1.08)}
 .social h4{font-size:1.05rem}
 .social span{font-size:.8rem;color:var(--soft);font-weight:600}
 
@@ -125,12 +130,6 @@ h1,h2,h3{font-family:'Baloo 2',sans-serif;line-height:1.15;font-weight:800}
   .nav-links a{padding:13px 14px}
   .burger{display:flex}
 }
-
-.game img, .game video {
-  width: 100%;
-  aspect-ratio: 16/9;
-  object-fit: cover;
-}
 </style>
 </head>
 <body>
@@ -138,13 +137,19 @@ h1,h2,h3{font-family:'Baloo 2',sans-serif;line-height:1.15;font-weight:800}
 <!-- NAV -->
 <nav class="nav">
   <div class="nav-in">
-    <a href="#top" class="brand"><img src="images/logo.png" class="brand-badge" alt="Логотип"> EngieDEV Team</a>
-    <input type="checkbox" id="navToggle" class="nav-toggle" hidden>
-    <label for="navToggle" class="burger" aria-label="Меню"><span></span><span></span><span></span></label>
-    <div class="nav-links">
-      <a href="#about">О нас</a>
-      <a href="#games">Игры</a>
-      <a href="#socials">Соцсети</a>
+    <a href="#top" class="brand"><img src="images/logo.png" class="brand-badge" alt="Logo"> EngieDEV Team</a>
+    <div class="nav-right">
+      <div class="lang-toggle">
+        <button data-lang="ru" class="active">RU</button>
+        <button data-lang="en">EN</button>
+      </div>
+      <input type="checkbox" id="navToggle" class="nav-toggle" hidden>
+      <label for="navToggle" class="burger" aria-label="Menu"><span></span><span></span><span></span></label>
+      <div class="nav-links">
+        <a href="#about" data-i18n="nav.about">О нас</a>
+        <a href="#games" data-i18n="nav.games">Игры</a>
+        <a href="#socials" data-i18n="nav.socials">Соцсети</a>
+      </div>
     </div>
   </div>
 </nav>
@@ -153,16 +158,16 @@ h1,h2,h3{font-family:'Baloo 2',sans-serif;line-height:1.15;font-weight:800}
 <header class="hero" id="top">
   <div class="wrap hero-in">
     <div>
-      <span class="tag"><span class="dot"></span> Делаем игры</span>
-      <h1>Создаем игры ради <span class="grad">веселья</span></h1>
-      <p class="lead">EndgieDEV Team — компания тараканов с маракасами.</p>
+      <span class="tag"><span class="dot"></span> <span data-i18n="hero.tag">Делаем игры</span></span>
+      <h1 data-i18n="hero.title">Создаем игры ради <span class="grad">веселья</span></h1>
+      <p class="lead" data-i18n="hero.lead">EndgieDEV Team — компания тараканов с маракасами.</p>
       <div class="hero-actions">
-        <a href="#games" class="btn btn-primary">Наши игры →</a>
+        <a href="#games" class="btn btn-primary" data-i18n="hero.btn">Наши игры →</a>
       </div>
     </div>
     <div class="hero-art">
-      <div class="frame"><img src="images/game-art-1.jpg" alt="Скриншот из игры"></div>
-      <img class="hero-mascot" src="images/mascot-hero.png" alt="Инж">
+      <div class="frame"><img src="images/game-art-1.jpg" alt="" data-i18n-alt="hero.img" data-i18n-alt-ru="Скриншот из игры" data-i18n-alt-en="Game screenshot"></div>
+      <img class="hero-mascot" src="images/mascot-hero.png" alt="Engie">
     </div>
   </div>
 </header>
@@ -170,11 +175,11 @@ h1,h2,h3{font-family:'Baloo 2',sans-serif;line-height:1.15;font-weight:800}
 <!-- ABOUT -->
 <section class="section about" id="about">
   <div class="wrap about-in">
-    <img src="images/mascot-pose-2.png" alt="Инж в огне">
+    <img src="images/mascot-pose-2.png" alt="Engie on fire">
     <div class="about-content">
-      <h2>Немного о нас</h2>
-      <p>Мы — небольшая команда друзей-энтузиазстов, которые делают игры на Unity 6.</p>
-      <p>Наши проекты - это кровь, пот, слезы и тонны энергетиков Burn "тропический микс" и RedBull.</p>
+      <h2 data-i18n="about.title">Немного о нас</h2>
+      <p data-i18n="about.p1">Мы — небольшая команда друзей-энтузиастов, которые делают игры на Unity 6.</p>
+      <p data-i18n="about.p2">Наши проекты — это кровь, пот, слезы и тонны энергетиков Burn «тропический микс» и RedBull.</p>
     </div>
   </div>
 </section>
@@ -183,9 +188,9 @@ h1,h2,h3{font-family:'Baloo 2',sans-serif;line-height:1.15;font-weight:800}
 <section class="section games" id="games">
   <div class="wrap">
     <div class="sec-head">
-      <span class="eyebrow">Проекты</span>
-      <h2>Наши проекты</h2>
-      <p>Немного из нашего творчества, которое я так люблю</p>
+      <span class="eyebrow" data-i18n="games.eyebrow">Проекты</span>
+      <h2 data-i18n="games.title">Наши проекты</h2>
+      <p data-i18n="games.subtitle">Немного из нашего творчества, которое я так люблю</p>
     </div>
     <div class="games-grid">
       <article class="game">
@@ -193,8 +198,8 @@ h1,h2,h3{font-family:'Baloo 2',sans-serif;line-height:1.15;font-weight:800}
         <div class="game-body">
           <div class="game-tags"><span class="game-tag">Roguelike</span><span class="game-tag">Co-op</span></div>
           <h3>Lost Windshard</h3>
-          <p>На архипелаге произошла беда: что-то побудило древнюю силу стражей (монстры и роботы), и они захватили архипелаг, ослабив силу "концентрата" (магический кристалл, дающий силы всему региону). На помощь прибыли герои из региона света, прилетев на летающем корабле. Их задача добраться до центра архипелага в город и спасти концентрат, истребив стражей..</p>
-          <span class="game-status"><span class="dot"></span> В разработке</span>
+          <p data-i18n="games.g1.desc">На архипелаге произошла беда: что-то побудило древнюю силу стражей (монстры и роботы), и они захватили архипелаг, ослабив силу «концентрата» (магический кристалл, дающий силы всему региону). На помощь прибыли герои из региона света, прилетев на летающем корабле. Их задача — добраться до центра архипелага в город и спасти концентрат, истребив стражей.</p>
+          <span class="game-status"><span class="dot"></span> <span data-i18n="games.g1.status">В разработке</span></span>
         </div>
       </article>
       <article class="game">
@@ -202,8 +207,8 @@ h1,h2,h3{font-family:'Baloo 2',sans-serif;line-height:1.15;font-weight:800}
         <div class="game-body">
           <div class="game-tags"><span class="game-tag">Action</span><span class="game-tag">Survival</span></div>
           <h3>Survival City</h3>
-          <p>Мир поглотила ядерная война, и вы должны выбраться из зоны очуждения, добывая припасы и разгадав тайну загадочного Церемфия.</p>
-          <span class="game-status"><span class="dot"></span> Заморожена до лучших времен...</span>
+          <p data-i18n="games.g2.desc">Мир поглотила ядерная война, и вы должны выбраться из зоны отчуждения, добывая припасы и разгадав тайну загадочного Церемфия.</p>
+          <span class="game-status"><span class="dot"></span> <span data-i18n="games.g2.status">Заморожена до лучших времен...</span></span>
         </div>
       </article>
     </div>
@@ -214,46 +219,45 @@ h1,h2,h3{font-family:'Baloo 2',sans-serif;line-height:1.15;font-weight:800}
 <section class="section" id="socials" style="background:linear-gradient(180deg,#ecdfc2,var(--bg))">
   <div class="wrap">
     <div class="sec-head">
-      <span class="eyebrow">На связи</span>
-      <h2>Соцсети</h2>
-      <p>Подписывайся — делимся процессом разработки и концептами.</p>
+      <span class="eyebrow" data-i18n="socials.eyebrow">На связи</span>
+      <h2 data-i18n="socials.title">Соцсети</h2>
+      <p data-i18n="socials.subtitle">Подписывайся — делимся процессом разработки и концептами.</p>
     </div>
     <div class="socials-grid">
-      <!-- ЗАМЕНИ href на свои ссылки -->
       <a href="https://discord.gg/kw9mMsF53M" target="_blank" rel="noopener" class="social" style="--accent:#5865F2">
         <i class="fa-brands fa-discord"></i>
         <h4>Discord</h4>
-        <span>Сообщество</span>
+        <span data-i18n="soc.discord">Сообщество</span>
       </a>
       <a href="https://t.me/gd_engie" target="_blank" rel="noopener" class="social" style="--accent:#2AABEE">
         <i class="fa-brands fa-telegram"></i>
         <h4>Telegram</h4>
-        <span>Новости</span>
+        <span data-i18n="soc.telegram">Новости</span>
       </a>
       <a href="https://store.steampowered.com/developer/EngieDEV" target="_blank" rel="noopener" class="social" style="--accent:#1b2838">
         <i class="fa-brands fa-steam"></i>
         <h4>Steam</h4>
-        <span>Куратор</span>
+        <span data-i18n="soc.steam">Куратор</span>
       </a>
       <a href="https://bsky.app/profile/engiedev.bsky.social" target="_blank" rel="noopener" class="social" style="--accent:#1185FE">
         <i class="fa-brands fa-bluesky"></i>
         <h4>Bluesky</h4>
-        <span>Девлоги</span>
+        <span data-i18n="soc.bsky">Девлоги</span>
       </a>
       <a href="https://www.youtube.com/@EngieDEV" target="_blank" rel="noopener" class="social" style="--accent:#FF0000">
         <i class="fa-brands fa-youtube"></i>
         <h4>YouTube</h4>
-        <span>Анонсы</span>
+        <span data-i18n="soc.youtube">Анонсы</span>
       </a>
       <a href="https://x.com/EngieDeveloper" target="_blank" rel="noopener" class="social" style="--accent:#1a1a1a">
         <i class="fa-brands fa-x-twitter"></i>
         <h4>X (Twitter)</h4>
-        <span>Девлоги</span>
+        <span data-i18n="soc.twitter">Девлоги</span>
       </a>
       <a href="" target="_blank" rel="noopener" class="social" style="--accent:#ff0050">
         <i class="fa-brands fa-tiktok"></i>
         <h4>TikTok</h4>
-        <span>Видео</span>
+        <span data-i18n="soc.tiktok">Видео</span>
       </a>
     </div>
   </div>
@@ -262,14 +266,121 @@ h1,h2,h3{font-family:'Baloo 2',sans-serif;line-height:1.15;font-weight:800}
 <!-- FOOTER -->
 <footer class="footer">
   <div class="footer-banner">
-    <img class="footer-mascot" src="images/mascot-pose.jpg" alt="Маскот">
+    <img class="footer-mascot" src="images/mascot-pose.jpg" alt="Mascot">
   </div>
   <div class="footer-in">
-	<div class="brand" style="justify-content:center;color:var(--cream)"><img src="images/logo.png" class="brand-badge" alt="Логотип"> EndgieDEV Team</div>
-    <p>Создаём игры для души.</p>
+	<div class="brand" style="justify-content:center;color:var(--cream)"><img src="images/logo.png" class="brand-badge" alt="Logo"> EndgieDEV Team</div>
+    <p data-i18n="footer.tagline">Создаём игры для души.</p>
   </div>
-  <div class="footer-bottom">© 2026 EngieDEV Team · Сделано по приколу с помощью ИИ и своими ручками (по большей части)</div>
+  <div class="footer-bottom" data-i18n="footer.copy">© 2026 EngieDEV Team · Сделано по приколу с помощью ИИ и своими ручками (по большей части)</div>
 </footer>
 
+<script>
+/* ===== СЛОВАРЬ ЛОКАЛИЗАЦИИ ===== */
+const I18N = {
+  ru: {
+    'title':'EngieDEV Team — полезные ссылки',
+    'desc':'EndgieDEV Team — независимая разработка игр.',
+    'nav.about':'О нас',
+    'nav.games':'Игры',
+    'nav.socials':'Соцсети',
+    'hero.tag':'Делаем игры',
+    'hero.title':'Создаем игры ради <span class="grad">веселья</span>',
+    'hero.lead':'EndgieDEV Team — компания тараканов с маракасами.',
+    'hero.btn':'Наши игры →',
+    'hero.img':'Скриншот из игры',
+    'about.title':'Немного о нас',
+    'about.p1':'Мы — небольшая команда друзей-энтузиастов, которые делают игры на Unity 6.',
+    'about.p2':'Наши проекты — это кровь, пот, слезы и тонны энергетиков Burn «тропический микс» и RedBull.',
+    'games.eyebrow':'Проекты',
+    'games.title':'Наши проекты',
+    'games.subtitle':'Немного из нашего творчества, которое я так люблю',
+    'games.g1.desc':'На архипелаге произошла беда: что-то побудило древнюю силу стражей (монстры и роботы), и они захватили архипелаг, ослабив силу «концентрата» (магический кристалл, дающий силы всему региону). На помощь прибыли герои из региона света, прилетев на летающем корабле. Их задача — добраться до центра архипелага в город и спасти концентрат, истребив стражей.',
+    'games.g1.status':'В разработке',
+    'games.g2.desc':'Мир поглотила ядерная война, и вы должны выбраться из зоны отчуждения, добывая припасы и разгадав тайну загадочного Церемфия.',
+    'games.g2.status':'Заморожена до лучших времен...',
+    'socials.eyebrow':'На связи',
+    'socials.title':'Соцсети',
+    'socials.subtitle':'Подписывайся — делимся процессом разработки и концептами.',
+    'soc.discord':'Сообщество',
+    'soc.telegram':'Новости',
+    'soc.steam':'Куратор',
+    'soc.bsky':'Девлоги',
+    'soc.youtube':'Анонсы',
+    'soc.twitter':'Девлоги',
+    'soc.tiktok':'Видео',
+    'footer.tagline':'Создаём игры для души.',
+    'footer.copy':'© 2026 EngieDEV Team · Сделано по приколу с помощью ИИ и своими ручками (по большей части)'
+  },
+  en: {
+    'title':'EngieDEV Team — useful links',
+    'desc':'EndgieDEV Team — indie game development.',
+    'nav.about':'About',
+    'nav.games':'Games',
+    'nav.socials':'Socials',
+    'hero.tag':'Making games',
+    'hero.title':'Making games for <span class="grad">fun</span>',
+    'hero.lead':'EndgieDEV Team — a crew of cockroaches with maracas.',
+    'hero.btn':'Our games →',
+    'hero.img':'Game screenshot',
+    'about.title':'A bit about us',
+    'about.p1':'We are a small team of enthusiastic friends making games in Unity 6.',
+    'about.p2':'Our projects are blood, sweat, tears, and tons of Burn “tropical mix” and RedBull energy drinks.',
+    'games.eyebrow':'Projects',
+    'games.title':'Our projects',
+    'games.subtitle':'A glimpse of our work that I love so much',
+    'games.g1.desc':'A disaster struck the archipelago: something awakened the ancient force of the guardians (monsters and robots), which seized the archipelago and weakened the “concentrate” (a magic crystal powering the entire region). Heroes from the region of light came to the rescue, arriving on an airship. Their mission is to reach the city at the heart of the archipelago, save the concentrate, and wipe out the guardians.',
+    'games.g1.status':'In development',
+    'games.g2.desc':'The world was consumed by nuclear war, and you must escape the exclusion zone — scavenging supplies and uncovering the mystery of the enigmatic Tseremfy.',
+    'games.g2.status':'On hold until better times...',
+    'socials.eyebrow':'Stay in touch',
+    'socials.title':'Socials',
+    'socials.subtitle':'Follow us — we share our dev process and concepts.',
+    'soc.discord':'Community',
+    'soc.telegram':'News',
+    'soc.steam':'Curator',
+    'soc.bsky':'Devlogs',
+    'soc.youtube':'Announcements',
+    'soc.twitter':'Devlogs',
+    'soc.tiktok':'Videos',
+    'footer.tagline':'Making games with heart.',
+    'footer.copy':'© 2026 EngieDEV Team · Made for fun with AI and our own hands (mostly)'
+  }
+};
+
+/* ===== ПЕРЕКЛЮЧЕНИЕ ЯЗЫКА ===== */
+function setLang(lang){
+  document.documentElement.lang = lang;
+  // текст элементов
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const key = el.dataset.i18n;
+    const txt = I18N[lang][key];
+    if(txt !== undefined) el.innerHTML = txt;
+  });
+  // alt у картинок
+  document.querySelectorAll('[data-i18n-alt]').forEach(el=>{
+    const key = el.dataset.i18nAlt;
+    const txt = I18N[lang][key];
+    if(txt !== undefined) el.setAttribute('alt', txt);
+  });
+  // title и description страницы
+  document.title = I18N[lang]['title'];
+  document.querySelector('meta[name="description"]').setAttribute('content', I18N[lang]['desc']);
+  // активная кнопка
+  document.querySelectorAll('.lang-toggle button').forEach(b=>{
+    b.classList.toggle('active', b.dataset.lang === lang);
+  });
+  // запоминаем выбор
+  localStorage.setItem('lang', lang);
+}
+
+// клики по кнопкам
+document.querySelectorAll('.lang-toggle button').forEach(b=>{
+  b.addEventListener('click', ()=> setLang(b.dataset.lang));
+});
+
+// применяем сохранённый язык (по умолчанию — ru)
+setLang(localStorage.getItem('lang') || 'ru');
+</script>
 </body>
 </html>
