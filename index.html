@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EngieDEV Team - полезные ссылки</title>
+<meta name="description" content="EndgieDEV Team — независимая разработка игр.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'></text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+<style>
+:root{
+  --bg:#f4ead4; --cream:#fbf4e2; --ink:#3a2a1c; --soft:#6a553f;
+  --teal:#1d403b; --teal-deep:#15302c; --coral:#e0754a; --coral-d:#c25c33;
+  --gold:#e0a93b; --radius:26px 20px 28px 22px;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:80px}
+body{font-family:'Nunito',system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.7;overflow-x:hidden}
+body::after{content:'';position:fixed;inset:0;z-index:99;pointer-events:none;opacity:.05;mix-blend-mode:multiply;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 220 220' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+h1,h2,h3{font-family:'Baloo 2',sans-serif;line-height:1.15;font-weight:800}
+.wrap{max-width:1000px;margin:0 auto;padding:0 24px}
+
+/* NAV */
+.nav{position:sticky;top:0;z-index:100;background:rgba(244,234,212,.85);backdrop-filter:blur(10px);border-bottom:2px solid rgba(58,42,28,.08)}
+.nav-in{max-width:1000px;margin:0 auto;padding:13px 24px;display:flex;align-items:center;justify-content:space-between}
+.brand{display:flex;align-items:center;gap:10px;font-family:'Baloo 2',sans-serif;font-weight:800;font-size:1.2rem;color:var(--teal-deep)}
+.brand-badge{
+  width:40px;height:40px;border-radius:13px;
+  object-fit:cover;
+  transform:rotate(-4deg);
+}
+.nav-links{display:flex;align-items:center;gap:4px}
+.nav-links a{padding:8px 14px;border-radius:12px;font-weight:700;font-size:.92rem;color:var(--soft);transition:.2s}
+.nav-links a:hover{color:var(--teal-deep);background:rgba(224,117,74,.12)}
+.nav-toggle{display:none}
+.burger{display:none;cursor:pointer;width:30px;height:30px;flex-direction:column;justify-content:center;gap:5px;background:none;border:none}
+.burger span{display:block;width:24px;height:3px;background:var(--ink);border-radius:3px;margin:0 auto}
+
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;gap:8px;font-family:'Baloo 2',sans-serif;font-weight:700;padding:13px 26px;border:none;cursor:pointer;border-radius:16px;font-size:1rem;transition:.15s}
+.btn-primary{background:var(--coral);color:#fff;box-shadow:0 5px 0 var(--coral-d)}
+.btn-primary:hover{transform:translateY(3px);box-shadow:0 2px 0 var(--coral-d)}
+
+/* HERO */
+.hero{position:relative;padding:56px 0 40px;overflow:hidden;background:radial-gradient(ellipse at 80% 10%,rgba(224,169,59,.18),transparent 55%),var(--bg)}
+.hero-in{display:grid;grid-template-columns:1.1fr .9fr;align-items:center;gap:40px;position:relative;z-index:2}
+.tag{display:inline-flex;align-items:center;gap:8px;background:rgba(42,93,87,.10);color:var(--teal-deep);padding:6px 16px;border-radius:20px;font-weight:800;font-size:.82rem;margin-bottom:18px}
+.tag .dot{width:8px;height:8px;background:var(--coral);border-radius:50%}
+.hero h1{font-size:clamp(2.3rem,5.5vw,4rem);letter-spacing:-1px}
+.hero h1 .grad{background:linear-gradient(120deg,var(--coral),var(--gold) 60%,#7a4a6e);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.hero p.lead{font-size:1.12rem;color:var(--soft);margin:18px 0 26px;max-width:440px}
+.hero-actions{display:flex;gap:14px;flex-wrap:wrap}
+.hero-art{position:relative;display:grid;place-items:center}
+.hero-art .frame{border-radius:var(--radius);background:var(--cream);padding:16px;box-shadow:0 24px 50px -22px rgba(29,64,59,.25),inset 0 0 0 2px rgba(255,255,255,.5);transform:rotate(1.5deg)}
+.hero-art .frame img{border-radius:16px;width:100%;max-width:380px}
+.hero-mascot{position:absolute;bottom:-26px;left:-28px;width:120px;z-index:3;filter:drop-shadow(0 12px 20px rgba(58,42,28,.28));transform:rotate(-3deg)}
+
+/* SECTION */
+.section{padding:72px 0;position:relative}
+.sec-head{text-align:center;max-width:560px;margin:0 auto 40px}
+.eyebrow{font-family:'Baloo 2',sans-serif;font-weight:700;color:var(--coral-d);font-size:.85rem;letter-spacing:2px;text-transform:uppercase}
+.sec-head h2{font-size:clamp(1.8rem,4vw,2.6rem);margin-top:6px}
+.sec-head p{color:var(--soft);margin-top:8px;font-size:1.05rem}
+
+/* ABOUT */
+.about{background:linear-gradient(180deg,var(--bg),#ecdfc2)}
+.about-in{display:grid;grid-template-columns:.9fr 1.1fr;gap:44px;align-items:center}
+.about-in img{border-radius:var(--radius);box-shadow:0 20px 45px -18px rgba(29,64,59,.25);transform:rotate(-2deg)}
+.about-content h2{font-size:clamp(1.7rem,3.8vw,2.4rem);margin-bottom:16px}
+.about-content p{color:var(--soft);font-size:1.06rem}
+.about-content p+p{margin-top:14px}
+
+/* GAMES */
+.games{background:var(--teal-deep);color:var(--cream)}
+.games .eyebrow{color:var(--gold)}
+.games .sec-head h2{color:var(--cream)}
+.games .sec-head p{color:rgba(251,244,226,.7)}
+.games-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.game{background:var(--teal);border-radius:var(--radius);overflow:hidden;box-shadow:0 16px 40px -18px rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.06);transition:transform .35s,box-shadow .35s}
+.game:hover{transform:translateY(-6px);box-shadow:0 24px 50px -18px rgba(0,0,0,.6)}
+.game img{width:100%;aspect-ratio:16/10;object-fit:cover}
+.game-body{padding:20px 22px 24px}
+.game-tags{display:flex;gap:7px;margin-bottom:10px;flex-wrap:wrap}
+.game-tag{font-size:.72rem;font-weight:800;padding:3px 11px;border-radius:10px;background:rgba(224,117,74,.18);color:var(--gold);font-family:'Baloo 2',sans-serif}
+.game-body h3{font-size:1.35rem;color:var(--cream);margin-bottom:6px}
+.game-body p{color:rgba(251,244,226,.68);font-size:.95rem}
+.game-status{font-size:.82rem;font-weight:700;color:var(--gold);margin-top:14px;display:block}
+.game-status .dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#6b8e4e;margin-right:6px}
+
+/* SOCIALS */
+.socials-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:16px}
+.social{display:flex;flex-direction:column;align-items:center;text-align:center;gap:8px;background:var(--cream);padding:24px 16px;border-radius:var(--radius);box-shadow:0 6px 20px -8px rgba(58,42,28,.14);transition:transform .3s,box-shadow .3s;position:relative;overflow:hidden}
+.social::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform .3s}
+.social:hover{transform:translateY(-6px);box-shadow:0 16px 34px -12px rgba(29,64,59,.22)}
+.social:hover::before{transform:scaleX(1)}
+.social-ico{width:52px;height:52px;border-radius:15px;display:grid;place-items:center;background:var(--accent);color:#fff;transition:transform .3s}
+.social-ico svg{width:26px;height:26px;fill:currentColor}
+.social:hover .social-ico{transform:rotate(-8deg) scale(1.08)}
+.social h4{font-size:1.05rem}
+.social span{font-size:.8rem;color:var(--soft);font-weight:600}
+
+/* FOOTER */
+.footer{background:var(--teal-deep);color:var(--cream);position:relative}
+.footer-banner{position:relative;height:160px;overflow:hidden}
+.footer-banner img{width:100%;height:100%;object-fit:cover;opacity:.6}
+.footer-banner::after{content:'';position:absolute;inset:0;background:linear-gradient(0deg,var(--teal-deep),transparent 70%)}
+.footer-mascot{position:absolute;left:50%;bottom:0;transform:translateX(-50%);width:100px;z-index:3;filter:drop-shadow(0 -6px 16px rgba(0,0,0,.4))}
+.footer-in{max-width:1000px;margin:0 auto;padding:36px 24px 24px;text-align:center}
+.footer-in p{color:rgba(251,244,226,.6);font-size:.92rem;margin-top:10px}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.08);padding:18px 24px;text-align:center;color:rgba(251,244,226,.5);font-size:.85rem}
+
+/* RESPONSIVE */
+@media(max-width:760px){
+  .hero-in,.about-in,.games-grid{grid-template-columns:1fr}
+  .hero-art{order:-1;margin-bottom:16px}
+  .hero-art .frame{max-width:340px;margin:0 auto}
+  .hero-mascot{width:90px;left:-14px;bottom:-18px}
+  .nav-toggle:checked ~ .nav-links{display:flex}
+  .nav-links{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;background:var(--bg);padding:12px 24px;border-bottom:2px solid rgba(58,42,28,.1);gap:2px;align-items:stretch}
+  .nav-links a{padding:13px 14px}
+  .burger{display:flex}
+}
+
+.game img, .game video {
+  width: 100%;
+  aspect-ratio: 16/9;
+  object-fit: cover;
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-in">
+    <a href="#top" class="brand"><img src="images/logo.png" class="brand-badge" alt="Логотип"> EngieDEV Team</a>
+    <input type="checkbox" id="navToggle" class="nav-toggle" hidden>
+    <label for="navToggle" class="burger" aria-label="Меню"><span></span><span></span><span></span></label>
+    <div class="nav-links">
+      <a href="#about">О нас</a>
+      <a href="#games">Игры</a>
+      <a href="#socials">Соцсети</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero" id="top">
+  <div class="wrap hero-in">
+    <div>
+      <span class="tag"><span class="dot"></span> Делаем игры</span>
+      <h1>Создаем игры ради <span class="grad">веселья</span></h1>
+      <p class="lead">EndgieDEV Team — компания тараканов с маракасами.</p>
+      <div class="hero-actions">
+        <a href="#games" class="btn btn-primary">Наши игры →</a>
+      </div>
+    </div>
+    <div class="hero-art">
+      <div class="frame"><img src="images/game-art-1.jpg" alt="Скриншот из игры"></div>
+      <img class="hero-mascot" src="images/mascot-hero.png" alt="Инж">
+    </div>
+  </div>
+</header>
+
+<!-- ABOUT -->
+<section class="section about" id="about">
+  <div class="wrap about-in">
+    <img src="images/mascot-pose-2.png" alt="Инж в огне">
+    <div class="about-content">
+      <h2>Немного о нас</h2>
+      <p>Мы — небольшая команда друзей-энтузиазстов, которые делают игры на Unity 6.</p>
+      <p>Наши проекты - это кровь, пот, слезы и тонны энергетиков Burn "тропический микс" и RedBull.</p>
+    </div>
+  </div>
+</section>
+
+<!-- GAMES -->
+<section class="section games" id="games">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Проекты</span>
+      <h2>Наши проекты</h2>
+      <p>Немного из нашего творчества, которое я так люблю</p>
+    </div>
+    <div class="games-grid">
+      <article class="game">
+        <video src="videos/game-art-1.mp4" autoplay muted loop playsinline poster="images/game-art-1.jpg"></video>
+        <div class="game-body">
+          <div class="game-tags"><span class="game-tag">Roguelike</span><span class="game-tag">Co-op</span></div>
+          <h3>Lost Windshard</h3>
+          <p>На архипелаге произошла беда: что-то побудило древнюю силу стражей (монстры и роботы), и они захватили архипелаг, ослабив силу "концентрата" (магический кристалл, дающий силы всему региону). На помощь прибыли герои из региона света, прилетев на летающем корабле. Их задача добраться до центра архипелага в город и спасти концентрат, истребив стражей..</p>
+          <span class="game-status"><span class="dot"></span> В разработке</span>
+        </div>
+      </article>
+      <article class="game">
+        <video src="videos/game-art-2.mp4" autoplay muted loop playsinline poster="images/game-art-2.png"></video>
+        <div class="game-body">
+          <div class="game-tags"><span class="game-tag">Action</span><span class="game-tag">Survival</span></div>
+          <h3>Survival City</h3>
+          <p>Мир поглотила ядерная война, и вы должны выбраться из зоны очуждения, добывая припасы и разгадав тайну загадочного Церемфия.</p>
+          <span class="game-status"><span class="dot"></span> Заморожена до лучших времен...</span>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- SOCIALS -->
+<section class="section" id="socials" style="background:linear-gradient(180deg,#ecdfc2,var(--bg))">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">На связи</span>
+      <h2>Соцсети</h2>
+      <p>Подписывайся — делимся процессом разработки и концептами.</p>
+    </div>
+    <div class="socials-grid">
+      <!-- ЗАМЕНИ href на свои ссылки -->
+      <a href="https://discord.gg/kw9mMsF53M" target="_blank" rel="noopener" class="social" style="--accent:#5865F2">
+        <i class="fa-brands fa-discord"></i>
+        <h4>Discord</h4>
+        <span>Сообщество</span>
+      </a>
+      <a href="https://t.me/gd_engie" target="_blank" rel="noopener" class="social" style="--accent:#2AABEE">
+        <i class="fa-brands fa-telegram"></i>
+        <h4>Telegram</h4>
+        <span>Новости</span>
+      </a>
+      <a href="https://store.steampowered.com/developer/EngieDEV" target="_blank" rel="noopener" class="social" style="--accent:#1b2838">
+        <i class="fa-brands fa-steam"></i>
+        <h4>Steam</h4>
+        <span>Куратор</span>
+      </a>
+      <a href="https://bsky.app/profile/engiedev.bsky.social" target="_blank" rel="noopener" class="social" style="--accent:#1185FE">
+        <i class="fa-brands fa-bluesky"></i>
+        <h4>Bluesky</h4>
+        <span>Девлоги</span>
+      </a>
+      <a href="https://www.youtube.com/@EngieDEV" target="_blank" rel="noopener" class="social" style="--accent:#FF0000">
+        <i class="fa-brands fa-youtube"></i>
+        <h4>YouTube</h4>
+        <span>Анонсы</span>
+      </a>
+      <a href="https://x.com/EngieDeveloper" target="_blank" rel="noopener" class="social" style="--accent:#1a1a1a">
+        <i class="fa-brands fa-x-twitter"></i>
+        <h4>X (Twitter)</h4>
+        <span>Девлоги</span>
+      </a>
+      <a href="" target="_blank" rel="noopener" class="social" style="--accent:#ff0050">
+        <i class="fa-brands fa-tiktok"></i>
+        <h4>TikTok</h4>
+        <span>Видео</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-banner">
+    <img class="footer-mascot" src="images/mascot-pose.jpg" alt="Маскот">
+  </div>
+  <div class="footer-in">
+	<div class="brand" style="justify-content:center;color:var(--cream)"><img src="images/logo.png" class="brand-badge" alt="Логотип"> EndgieDEV Team</div>
+    <p>Создаём игры для души.</p>
+  </div>
+  <div class="footer-bottom">© 2026 EngieDEV Team · Сделано по приколу с помощью ИИ и своими ручками (по большей части)</div>
+</footer>
+
+</body>
+</html>
