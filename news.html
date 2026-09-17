@@ -157,6 +157,42 @@ h1, h2, h3, h4 {
   background: var(--bg-card);
 }
 
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.refresh-btn {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  color: var(--text-soft);
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-family: 'Baloo 2', sans-serif;
+  font-weight: 700;
+  font-size: 0.85rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.15s ease;
+}
+
+.refresh-btn:hover {
+  color: #ffffff;
+  border-color: var(--border-hover);
+}
+
+.refresh-btn i.spinning {
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
 .lang-toggle {
   display: inline-flex;
   align-items: center;
@@ -279,8 +315,8 @@ h1, h2, h3, h4 {
 
 .feed-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 22px;
 }
 
 .post-card {
@@ -345,14 +381,74 @@ h1, h2, h3, h4 {
   word-break: break-word;
 }
 
-.post-img {
-  width: 100%;
-  max-height: 220px;
-  object-fit: cover;
-  border-radius: 9px;
+/* МЕДИА: ВИДЕО И КАРТИНКИ */
+.post-media-wrap {
+  position: relative;
+  border-radius: 10px;
+  overflow: hidden;
   border: 1px solid var(--border);
   background: #110f17;
   display: block;
+  margin-top: 6px;
+  cursor: pointer;
+  transition: border-color 0.15s ease;
+}
+
+.post-media-wrap:hover {
+  border-color: var(--purple-soft);
+}
+
+.post-media-img {
+  width: 100%;
+  aspect-ratio: 16/9;
+  object-fit: cover;
+  display: block;
+  background: #110f17;
+}
+
+.post-play-btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(13, 12, 18, 0.85);
+  backdrop-filter: blur(4px);
+  border: 1.5px solid var(--purple-soft);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  padding-left: 3px;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.6);
+}
+
+.post-media-wrap:hover .post-play-btn {
+  background: var(--purple-main);
+  border-color: var(--purple-main);
+  transform: translate(-50%, -50%) scale(1.1);
+}
+
+.post-media-badge {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  background: rgba(13, 12, 18, 0.85);
+  backdrop-filter: blur(4px);
+  color: #ffffff;
+  font-size: 0.73rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-family: 'Baloo 2', sans-serif;
 }
 
 .post-footer {
@@ -423,9 +519,14 @@ h1, h2, h3, h4 {
         <span>EngieDEV Team</span>
       </a>
     </div>
-    <div class="lang-toggle">
-      <button data-lang="ru" class="active">RU</button>
-      <button data-lang="en">EN</button>
+    <div class="nav-right">
+      <button class="refresh-btn" id="refreshFeedBtn" title="Обновить ленту">
+        <i class="fa-solid fa-rotate-right" id="refreshIcon"></i> <span data-i18n="news.refresh">Обновить</span>
+      </button>
+      <div class="lang-toggle">
+        <button data-lang="ru" class="active">RU</button>
+        <button data-lang="en">EN</button>
+      </div>
     </div>
   </div>
 </nav>
@@ -483,6 +584,9 @@ const I18N = {
     'news.sub_tg':'Подписаться в Telegram',
     'news.sub_bsky':'Читать в Bluesky',
     'news.open_post':'Открыть пост →',
+    'news.refresh':'Обновить',
+    'news.video_badge':'Видео',
+    'news.link_badge':'Ссылка',
     'news.empty':'Пока нет записей в этом канале.',
     'footer.copy':'© 2026 EngieDEV Team · Независимая разработка игр с душой и своими руками'
   },
@@ -496,6 +600,9 @@ const I18N = {
     'news.sub_tg':'Subscribe on Telegram',
     'news.sub_bsky':'Follow on Bluesky',
     'news.open_post':'Open post →',
+    'news.refresh':'Refresh',
+    'news.video_badge':'Video',
+    'news.link_badge':'Link',
     'news.empty':'No posts found in this feed yet.',
     'footer.copy':'© 2026 EngieDEV Team · Indie game development with passion and heart'
   }
@@ -574,7 +681,36 @@ function renderCards(posts) {
     const dateFormatted = formatPostDate(post.date, currentLang);
     const readText = I18N[currentLang]['news.open_post'];
     const safeText = escapeHtml(post.text || '');
-    const imageHtml = post.image ? `<img src="${post.image}" class="post-img" alt="Post attachment" loading="lazy">` : '';
+
+    // Отрисовка медиа
+    let mediaHtml = '';
+    if (post.image) {
+      const isVideo = post.media_type === 'video';
+      const isLink = post.media_type === 'link';
+      
+      if (isVideo) {
+        mediaHtml = `
+          <a href="${post.url}" target="_blank" rel="noopener" class="post-media-wrap is-video" title="${readText}">
+            <img src="${post.image}" class="post-media-img" alt="Video preview" loading="lazy">
+            <div class="post-play-btn"><i class="fa-solid fa-play"></i></div>
+            <span class="post-media-badge"><i class="fa-solid fa-play"></i> ${I18N[currentLang]['news.video_badge']}</span>
+          </a>
+        `;
+      } else if (isLink) {
+        mediaHtml = `
+          <a href="${post.url}" target="_blank" rel="noopener" class="post-media-wrap is-link" title="${readText}">
+            <img src="${post.image}" class="post-media-img" alt="Link preview" loading="lazy">
+            <span class="post-media-badge"><i class="fa-solid fa-arrow-up-right-from-square"></i> ${I18N[currentLang]['news.link_badge']}</span>
+          </a>
+        `;
+      } else {
+        mediaHtml = `
+          <a href="${post.url}" target="_blank" rel="noopener" class="post-media-wrap is-image" title="${readText}">
+            <img src="${post.image}" class="post-media-img" alt="Attached photo" loading="lazy">
+          </a>
+        `;
+      }
+    }
 
     return `
       <article class="post-card">
@@ -584,8 +720,8 @@ function renderCards(posts) {
           </span>
           <span class="post-date">${dateFormatted}</span>
         </div>
-        <div class="post-text">${safeText}</div>
-        ${imageHtml}
+        ${safeText ? `<div class="post-text">${safeText}</div>` : ''}
+        ${mediaHtml}
         <div class="post-footer">
           <span class="post-author">${escapeHtml(post.channel || '')}</span>
           <a href="${post.url}" target="_blank" rel="noopener" class="post-link">
@@ -629,62 +765,132 @@ function updateFeed() {
   }
 }
 
-async function loadFeed() {
+// Прямой запрос в публичное API Bluesky для моментального обновления без задержки
+async function fetchLiveBluesky() {
   try {
-    const res = await fetch('data/news.json');
+    const res = await fetch('https://public.api.bsky.app/xrpc/app.bsky.feed.getAuthorFeed?actor=engiedev.bsky.social&limit=15');
+    if (!res.ok) return null;
+    const data = await res.json();
+    const posts = [];
+    for (const item of (data.feed || [])) {
+      const post = item.post;
+      const rec = post && post.record;
+      if (!rec || rec.reply) continue;
+      const uri = post.uri || '';
+      const rkey = uri.split('/').pop();
+      
+      let mediaType = null;
+      let mediaUrl = null;
+      const embed = post.embed || {};
+      
+      if (embed.images && embed.images[0]) {
+        mediaType = 'image';
+        mediaUrl = embed.images[0].thumb || embed.images[0].fullsize;
+      } else if (embed.thumbnail) {
+        mediaType = 'video';
+        mediaUrl = embed.thumbnail;
+      } else if (embed.external && embed.external.thumb) {
+        const extUri = (embed.external.uri || '').toLowerCase();
+        mediaType = (extUri.includes('youtu') || extUri.includes('vimeo')) ? 'video' : 'link';
+        mediaUrl = embed.external.thumb;
+      }
+
+      posts.push({
+        id: 'bsky_' + rkey,
+        source: 'bluesky',
+        source_name: 'Bluesky',
+        channel: '@engiedev.bsky.social',
+        url: `https://bsky.app/profile/engiedev.bsky.social/post/${rkey}`,
+        date: rec.createdAt,
+        text: rec.text,
+        image: mediaUrl,
+        media_type: mediaType
+      });
+    }
+    return posts;
+  } catch (e) {
+    return null;
+  }
+}
+
+// Загрузка файла news.json с обходом кэша браузера
+async function loadFeed() {
+  const icon = document.getElementById('refreshIcon');
+  if (icon) icon.classList.add('spinning');
+
+  try {
+    const cacheBuster = '?v=' + Date.now();
+    const res = await fetch('data/news.json' + cacheBuster, { cache: 'no-store' });
     if (!res.ok) throw new Error('news.json not found');
     newsCache = await res.json();
-    updateFeed();
   } catch (err) {
-    console.warn('Загрузка fallback новостей:', err);
+    console.warn('Не удалось загрузить news.json по сети, используем встроенные данные:', err);
     newsCache = {
       ru: [
         {
-          id: 'tg_562',
-          source: 'telegram',
-          channel: '@gd_engie',
-          url: 'https://t.me/gd_engie/562',
-          date: '2026-09-15T14:32:32+00:00',
-          text: 'Сегодня вышел девлог от Orsoniks (разработчик Cas:U), и тот решил постримить как он играет на своем сервере, где 50к+ пользователей... 100 человек находилось в Голосовом чате, в том числе и я.'
+          id: "tg_567",
+          source: "telegram",
+          channel: "@gd_engie",
+          url: "https://t.me/gd_engie/567",
+          date: "2026-09-16T20:53:54+00:00",
+          text: "Хватит угарать",
+          image: null,
+          media_type: null
         },
         {
-          id: 'tg_561',
-          source: 'telegram',
-          channel: '@gd_engie',
-          url: 'https://t.me/gd_engie/561',
-          date: '2026-09-14T10:47:54+00:00',
-          text: 'В BlueSky умер мой самый любимый бот, помогающий мне с продвижением. Земля ему пухом 🫡'
+          id: "tg_566",
+          source: "telegram",
+          channel: "@gd_engie",
+          url: "https://t.me/gd_engie/566",
+          date: "2026-09-16T20:43:46+00:00",
+          text: "Всем добрый вечер! С горем попалам нашел композитора для игрульки, он написал тестовую демку. Мне сложно это судить, нужно ухо публики!",
+          image: null,
+          media_type: null
         },
         {
-          id: 'tg_560',
-          source: 'telegram',
-          channel: '@gd_engie',
-          url: 'https://t.me/gd_engie/560',
-          date: '2026-09-14T10:18:49+00:00',
-          text: 'Чтож, эээ, новая неделя, новая попытка подружиться с Тик-ток. Я в очередной раз создал новый аккаунт...'
+          id: "tg_560",
+          source: "telegram",
+          channel: "@gd_engie",
+          url: "https://t.me/gd_engie/560",
+          date: "2026-09-14T10:18:49+00:00",
+          text: "Чтож, эээ, новая неделя, новая попытка подружиться с Тик-ток. Я в очередной раз создал новый аккаунт в надежде найти с ним общий язык...\nКстати вот одно из видео.",
+          image: "https://cdn4.telesco.pe/file/fq1EEFly9SH5dQQD27HZYSm39WKr4w0rkOdcd-4LwYydX-QeGY030K5yC71u93K9K37b5iG8b6q7aV3Z69yK_80b-A.jpg",
+          media_type: "video"
         }
       ],
       en: [
         {
-          id: 'bsky_3mvhvqfexac2t',
-          source: 'bluesky',
-          channel: '@engiedev.bsky.social',
-          url: 'https://bsky.app/profile/engiedev.bsky.social/post/3mvhvqfexac2t',
-          date: '2026-09-14T10:30:36.105Z',
-          text: "Hey guys! I'm not dead, I'm doing aggressive strategy for PR my game, and it still not working... But we keep developing and pushing forward! 🎮"
+          id: "bsky_3mvncfyfh4c2v",
+          source: "bluesky",
+          channel: "@engiedev.bsky.social",
+          url: "https://bsky.app/profile/engiedev.bsky.social/post/3mvncfyfh4c2v",
+          date: "2026-09-16T14:00:44.285Z",
+          text: "I’ve been wondering whether it’s even worth including meta-progression or any kind of account-leveling system in the game. What do you think?",
+          image: null,
+          media_type: null
         },
         {
-          id: 'bsky_3muud4366ns2f',
-          source: 'bluesky',
-          channel: '@engiedev.bsky.social',
-          url: 'https://bsky.app/profile/engiedev.bsky.social/post/3muud4366ns2f',
-          date: '2026-09-06T15:36:31.932Z',
-          text: 'We made announcement trailer, take a look and add to your wishlist! Lost Windshard is entering new development milestones.'
+          id: "bsky_3mu3fyihgjk2o",
+          source: "bluesky",
+          channel: "@engiedev.bsky.social",
+          url: "https://bsky.app/profile/engiedev.bsky.social/post/3mu3fyihgjk2o",
+          date: "2026-08-27T17:51:39.399Z",
+          text: "We are close to complete new location, here a first look \n\n#Gamedev #Indiedev #gaming",
+          image: "https://video.bsky.app/watch/did%3Aplc%3A6sxe3lodcmi5sutts6fxc2z5/bafkreiewp5x7b2ouqzcey7xf7nrhyc4yhyca3eztftrfyzl2qlxgg2p3le/thumbnail.jpg",
+          media_type: "video"
         }
       ]
     };
-    updateFeed();
   }
+
+  // Параллельно подгружаем live-посты из Bluesky
+  const liveBsky = await fetchLiveBluesky();
+  if (liveBsky && liveBsky.length > 0) {
+    newsCache.en = liveBsky;
+  }
+
+  updateFeed();
+  if (icon) setTimeout(() => icon.classList.remove('spinning'), 300);
 }
 
 document.querySelectorAll('.tab-btn').forEach(btn => {
@@ -693,6 +899,13 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
     updateFeed();
   });
 });
+
+const refreshBtn = document.getElementById('refreshFeedBtn');
+if (refreshBtn) {
+  refreshBtn.addEventListener('click', () => {
+    loadFeed();
+  });
+}
 
 loadFeed();
 setLang(localStorage.getItem('lang') || 'ru');

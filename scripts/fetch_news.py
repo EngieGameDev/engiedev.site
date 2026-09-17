@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """
-Скрипт сбора новостей для EngieDEV Team
-- Telegram (@gd_engie) -> лента на русском языке (RU)
-- Bluesky (engiedev.bsky.social) -> лента на английском языке (EN)
-Без API-ключей, ботов и токенов — только публичные ленты.
+Скрипт сбора новостей и медиа для EngieDEV Team
+- Telegram (@gd_engie) -> лента RU с картинками и превью видео
+- Bluesky (engiedev.bsky.social) -> лента EN с картинками и превью видео
+Без API-ключей и ботов — прямо из публичных лент.
 """
 
 import urllib.request
@@ -15,11 +15,11 @@ import os
 
 TELEGRAM_CHANNEL = "gd_engie"
 BLUESKY_HANDLE = "engiedev.bsky.social"
-MAX_POSTS = 8
+MAX_POSTS = 12
 
 def fetch_bluesky_news():
     posts = []
-    url = f"https://public.api.bsky.app/xrpc/app.bsky.feed.getAuthorFeed?actor={BLUESKY_HANDLE}&limit={MAX_POSTS}"
+    url = f"https://public.api.bsky.app/xrpc/app.bsky.feed.getAuthorFeed?actor={BLUESKY_HANDLE}&limit={MAX_POSTS + 5}"
     try:
         req = urllib.request.Request(url, headers={"User-Agent": "EngieDEV-News-Bot/1.0"})
         with urllib.request.urlopen(req, timeout=12) as resp:
@@ -28,7 +28,7 @@ def fetch_bluesky_news():
                 post = item.get("post", {})
                 rec = post.get("record", {})
                 
-                # Игнорируем ответы на чужие твиты (если это реплай), оставляем только основные посты и девлоги
+                # Игнорируем ответы другим пользователям
                 if rec.get("reply"):
                     continue
 
@@ -37,18 +37,31 @@ def fetch_bluesky_news():
                 post_url = f"https://bsky.app/profile/{BLUESKY_HANDLE}/post/{rkey}" if rkey else f"https://bsky.app/profile/{BLUESKY_HANDLE}"
                 
                 text = rec.get("text", "").strip()
-                if not text:
+                if not text and not post.get("embed"):
                     continue
 
                 date_str = rec.get("createdAt", "")
                 
-                # Извлекаем картинку, если есть
-                image_url = None
+                # Извлекаем медиа (видео, картинки, превью ссылок)
+                media_type = None
+                media_url = None
                 embed = post.get("embed", {})
+                
+                # 1. Прикреплённые картинки
                 if "images" in embed and embed["images"]:
-                    image_url = embed["images"][0].get("thumb") or embed["images"][0].get("fullsize")
-                elif "media" in embed and "images" in embed["media"] and embed["media"]["images"]:
-                    image_url = embed["media"]["images"][0].get("thumb") or embed["media"]["images"][0].get("fullsize")
+                    media_type = "image"
+                    media_url = embed["images"][0].get("thumb") or embed["images"][0].get("fullsize")
+                # 2. Видео (в Bluesky превью лежит в embed.thumbnail)
+                elif "thumbnail" in embed and embed["thumbnail"]:
+                    media_type = "video"
+                    media_url = embed["thumbnail"]
+                # 3. Внешние ссылки (например, трейлер на YouTube)
+                elif "external" in embed and embed["external"]:
+                    ext = embed["external"]
+                    if ext.get("thumb"):
+                        ext_uri = ext.get("uri", "").lower()
+                        media_type = "video" if ("youtu" in ext_uri or "vimeo" in ext_uri) else "link"
+                        media_url = ext.get("thumb")
 
                 posts.append({
                     "id": f"bsky_{rkey}",
@@ -58,8 +71,12 @@ def fetch_bluesky_news():
                     "url": post_url,
                     "date": date_str,
                     "text": text,
-                    "image": image_url
+                    "image": media_url,
+                    "media_type": media_type
                 })
+                
+                if len(posts) >= MAX_POSTS:
+                    break
     except Exception as e:
         print(f"[!] Ошибка загрузки Bluesky: {e}")
     return posts[:MAX_POSTS]
@@ -90,25 +107,40 @@ def fetch_telegram_news():
                 date_str = time_match.group(1) if time_match else datetime.now(timezone.utc).isoformat()
                 
                 # Текст поста
+                clean_text = ""
                 text_match = re.search(r'class="tgme_widget_message_text[^>]*>(.*?)</div>', chunk, re.DOTALL)
-                if not text_match:
+                if text_match:
+                    raw_text = text_match.group(1)
+                    clean_text = re.sub(r'<br\s*/?>', '\n', raw_text)
+                    clean_text = re.sub(r'<[^>]+>', '', clean_text)
+                    clean_text = html.unescape(clean_text).strip()
+                
+                # Медиа: видео, фото или превью ссылки
+                media_type = None
+                media_url = None
+                
+                # 1. Видео превью (tgme_widget_message_video_thumb)
+                v_thumb = re.search(r'tgme_widget_message_video_thumb"[^>]*style="[^"]*background-image:url\(\'([^\']+)\'\)', chunk)
+                # 2. Фото (tgme_widget_message_photo_wrap)
+                p_thumb = re.search(r'tgme_widget_message_photo_wrap"[^>]*style="[^"]*background-image:url\(\'([^\']+)\'\)', chunk)
+                # 3. Превью ссылки (например, YouTube)
+                l_thumb = re.search(r'link_preview_image"[^>]*style="[^"]*background-image:url\(\'([^\']+)\'\)', chunk)
+                if not l_thumb:
+                    l_thumb = re.search(r'tgme_widget_message_link_preview"[^>]*style="[^"]*background-image:url\(\'([^\']+)\'\)', chunk)
+
+                if v_thumb:
+                    media_type = "video"
+                    media_url = v_thumb.group(1)
+                elif p_thumb:
+                    media_type = "image"
+                    media_url = p_thumb.group(1)
+                elif l_thumb:
+                    media_type = "link"
+                    media_url = l_thumb.group(1)
+
+                if not clean_text and not media_url:
                     continue
-                raw_text = text_match.group(1)
-                
-                # Преобразуем <br> и ссылки в читаемый вид
-                clean_text = re.sub(r'<br\s*/?>', '\n', raw_text)
-                clean_text = re.sub(r'<[^>]+>', '', clean_text)
-                clean_text = html.unescape(clean_text).strip()
-                
-                if not clean_text:
-                    continue
-                
-                # Картинка (если прикреплена)
-                image_url = None
-                img_match = re.search(r'tgme_widget_message_photo_wrap"[^>]*style="[^"]*background-image:url\(\'([^\']+)\'\)', chunk)
-                if img_match:
-                    image_url = img_match.group(1)
-                
+
                 posts.append({
                     "id": f"tg_{post_num}",
                     "source": "telegram",
@@ -117,7 +149,8 @@ def fetch_telegram_news():
                     "url": post_url,
                     "date": date_str,
                     "text": clean_text,
-                    "image": image_url
+                    "image": media_url,
+                    "media_type": media_type
                 })
                 
                 if len(posts) >= MAX_POSTS:

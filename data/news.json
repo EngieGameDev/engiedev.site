@@ -1,6 +1,50 @@
 {
-  "updated_at": "2026-09-15T22:48:56.125177+00:00",
+  "updated_at": "2026-09-17T15:19:23.521849+00:00",
   "ru": [
+    {
+      "id": "tg_567",
+      "source": "telegram",
+      "source_name": "Telegram",
+      "channel": "@gd_engie",
+      "url": "https://t.me/gd_engie/567",
+      "date": "2026-09-16T20:53:54+00:00",
+      "text": "Хватит угарать",
+      "image": null,
+      "media_type": null
+    },
+    {
+      "id": "tg_566",
+      "source": "telegram",
+      "source_name": "Telegram",
+      "channel": "@gd_engie",
+      "url": "https://t.me/gd_engie/566",
+      "date": "2026-09-16T20:43:46+00:00",
+      "text": "Всем добрый вечер! С горем попалам нашел композитора для игрульки, он написал тестовую демку.  Мне сложно это судить, нужно ухо публики!",
+      "image": null,
+      "media_type": null
+    },
+    {
+      "id": "tg_565",
+      "source": "telegram",
+      "source_name": "Telegram",
+      "channel": "@gd_engie",
+      "url": "https://t.me/gd_engie/565",
+      "date": "2026-09-16T20:42:44+00:00",
+      "text": "Всем добрый вечер!\nС горем попалам нашел композитора для игрульки, он написал тестовую демку. \nМне сложно это судить, нужно ухо публики!",
+      "image": null,
+      "media_type": null
+    },
+    {
+      "id": "tg_563",
+      "source": "telegram",
+      "source_name": "Telegram",
+      "channel": "@gd_engie",
+      "url": "https://t.me/gd_engie/563",
+      "date": "2026-09-15T23:24:14+00:00",
+      "text": "Напомню, что у меня есть такой крутой сайтик, и он был только что обновлен, как и обещал, я добавил в него вкладку новостей с последними новостями из Telegram и Bluesky\nhttps://engiegamedev.github.io/engiedev.site/",
+      "image": null,
+      "media_type": null
+    },
     {
       "id": "tg_562",
       "source": "telegram",
@@ -9,7 +53,8 @@
       "url": "https://t.me/gd_engie/562",
       "date": "2026-09-15T14:32:32+00:00",
       "text": "Сегодня вышел девлог от Orsoniks (разработчик Cas:U), и тот решил постримить как он играет на своем сервере, где 50к+ пользователей... \n100 человек находилось в Голосовом чате, в том числе и я. Проходит буквально полчаса, и ВЕСЬ ДИСКОРД ПАДАЕТ К ЧЕРТЯМ\nЯ рыдаю, только от осознания данной мысли меня уже рвет",
-      "image": null
+      "image": null,
+      "media_type": null
     },
     {
       "id": "tg_561",
@@ -19,7 +64,8 @@
       "url": "https://t.me/gd_engie/561",
       "date": "2026-09-14T10:47:54+00:00",
       "text": "В BlueSky умер мой самый любимый бот, помогающий мне с продвижением. \nЗемля ему пухом 🫡",
-      "image": null
+      "image": null,
+      "media_type": null
     },
     {
       "id": "tg_560",
@@ -29,7 +75,8 @@
       "url": "https://t.me/gd_engie/560",
       "date": "2026-09-14T10:18:49+00:00",
       "text": "Чтож, эээ, новая неделя, новая попытка подружиться с Тик-ток. Я в очередной раз создал новый аккаунт в надежде найти с ним общий язык, и пока старт не особо хороший. \nНо хочу отметить, что канал полностью посвящён англоязычной аудитории, и я даже нашел человека который в свое удовольствие помогает мне озвучивать видео. Я подготовил 4 видео, и надеюсь что за 4 дня я смогу найти определённый формат. \nКстати вот одно из них.\nP.S: к слову, я достал относительно новый телефон, изолированный от мобильного интернета (без симки) и для него оплатил кое-что на месяц.",
-      "image": null
+      "image": "https://cdn4.telesco.pe/file/fq1EEFly9SH5dQQD27HZYSm39WKr4w0rkOdcd-4LwYydX-QeGY0ZZTHOldYjfJTpoomwdwDaLdolJPoU-I_pN3aGQoTkKEmWclZFaFsbNW31dNkRrHVhw2lqWHAR4t7I3E4cehoe-mVbVBbXqA6QjcJMrZ6wYwK2ptZQQeJiJoZRs4vLiUhTr24jIX8KMonfv3z0_YsrtarG-G0_3XzoCvaANILn3Fjrrd9XiIX-uQqfCTr1xEuGgic2S81eq_szGmpHLZNQxQebN7QtZtWIdMIQfimu8roXY9QqxvonX5pJ2s1L3wZet67tBZqmHeFcH4KnIncaA9DspuVEZWHZVQ",
+      "media_type": "video"
     },
     {
       "id": "tg_558",
@@ -39,7 +86,8 @@
       "url": "https://t.me/gd_engie/558",
       "date": "2026-09-12T23:07:41+00:00",
       "text": "Не пугайтесь, я навожу порядок перед кое-чем...",
-      "image": null
+      "image": null,
+      "media_type": null
     },
     {
       "id": "tg_557",
@@ -49,7 +97,8 @@
       "url": "https://t.me/gd_engie/557",
       "date": "2026-09-12T23:07:19+00:00",
       "text": "EngieDEV pinned «»",
-      "image": null
+      "image": null,
+      "media_type": null
     },
     {
       "id": "tg_555",
@@ -59,7 +108,8 @@
       "url": "https://t.me/gd_engie/555",
       "date": "2026-09-07T12:23:52+00:00",
       "text": "Сегодня я разработал переход между локациями, теперь это можно действительно назвать рогаликом. Теперь нужно доработать Медное Предприятие и можно приступить к полировке игры для Demo",
-      "image": null
+      "image": null,
+      "media_type": null
     },
     {
       "id": "tg_554",
@@ -69,7 +119,8 @@
       "url": "https://t.me/gd_engie/554",
       "date": "2026-09-06T15:21:00+00:00",
       "text": "Ура, я сделал анонс игрового процесса",
-      "image": null
+      "image": "https://cdn4.telesco.pe/file/KfCPKk1-Nv4aA-CahCzce5EokMNA0TAO8HyWYcD0kVMJ07cHlMx825qL_B08NeuYsQXBOjHBVN_OIiHlGjhOcmJvo_DCB_k5JZT3DHeQ8QTgPb9w-f4tWnJlLL7OGNxRpIy-brMmmlRdjNJYAGsW_4mCW9JvAyPzamIv49vGiLwuW0gWHYnR3jwasFRBi99CbQKuWLHzYz1nx-kpsTdxvbYwc5LSDx_oUI10rDNvmG8uqFM3R-aoA2VmZb9R7DoNUSbOwScnGBxlfPHkatTMhHzV2JroOfb4FuzMP5mnUXyhhM_9ZLQTOBkAr1pic1DEmS1P2gfphK0RyZ4z3sh0uQ",
+      "media_type": "video"
     },
     {
       "id": "tg_553",
@@ -79,10 +130,22 @@
       "url": "https://t.me/gd_engie/553",
       "date": "2026-09-04T12:50:25+00:00",
       "text": "Я не умер, я активно создаю модификаторы",
-      "image": null
+      "image": null,
+      "media_type": null
     }
   ],
   "en": [
+    {
+      "id": "bsky_3mvncfyfh4c2v",
+      "source": "bluesky",
+      "source_name": "Bluesky",
+      "channel": "@engiedev.bsky.social",
+      "url": "https://bsky.app/profile/engiedev.bsky.social/post/3mvncfyfh4c2v",
+      "date": "2026-09-16T14:00:44.285Z",
+      "text": "I’ve been wondering whether it’s even worth including meta-progression or any kind of account-leveling system in the game. What do you think?\n\n#gamedev #indiedev #gaming #roguelike",
+      "image": null,
+      "media_type": null
+    },
     {
       "id": "bsky_3mvhvqfexac2t",
       "source": "bluesky",
@@ -91,7 +154,8 @@
       "url": "https://bsky.app/profile/engiedev.bsky.social/post/3mvhvqfexac2t",
       "date": "2026-09-14T10:30:36.105Z",
       "text": "Hey guys! \nI'm not dead, I'm doing aggressive strategy for PR my game, and it still not working... \nHow are you PR your games? Give me any suggestions... \n\nWhat about game: \nI'm doing second location \"Copper Enterprise\", and we working on any Enemies... \n\n#Gamedev #Indiedev #Gaming",
-      "image": null
+      "image": null,
+      "media_type": null
     },
     {
       "id": "bsky_3muud4366ns2f",
@@ -101,7 +165,8 @@
       "url": "https://bsky.app/profile/engiedev.bsky.social/post/3muud4366ns2f",
       "date": "2026-09-06T15:36:31.932Z",
       "text": "We made announcement trailer, take a look and add to your wishlist!\nyoutu.be/Sd1ckxw6eBU?...\n#Gamedev #Indiedev #Gaming",
-      "image": null
+      "image": "https://cdn.bsky.app/img/feed_thumbnail/plain/did:plc:6sxe3lodcmi5sutts6fxc2z5/bafkreifnmxtvsl43em35l3nqc77ng7ioxmoacwukumudonxvqd5fpqgnmi",
+      "media_type": "video"
     },
     {
       "id": "bsky_3mupfinnsck2r",
@@ -111,7 +176,8 @@
       "url": "https://bsky.app/profile/engiedev.bsky.social/post/3mupfinnsck2r",
       "date": "2026-09-04T16:36:02.744Z",
       "text": "What do you think this modifier does? >:) \n\n#Gamedev #Indiedev #Gaming",
-      "image": "https://cdn.bsky.app/img/feed_thumbnail/plain/did:plc:6sxe3lodcmi5sutts6fxc2z5/bafkreiaqllf6odewfh5t4chmtbrv76lpbcaawawqa6ei5uus7o7ggqyqgu"
+      "image": "https://cdn.bsky.app/img/feed_thumbnail/plain/did:plc:6sxe3lodcmi5sutts6fxc2z5/bafkreiaqllf6odewfh5t4chmtbrv76lpbcaawawqa6ei5uus7o7ggqyqgu",
+      "media_type": "image"
     },
     {
       "id": "bsky_3mu3fyihgjk2o",
@@ -121,7 +187,8 @@
       "url": "https://bsky.app/profile/engiedev.bsky.social/post/3mu3fyihgjk2o",
       "date": "2026-08-27T17:51:39.399Z",
       "text": "We are close to complete new location, here a first look \n\n#Gamedev #Indiedev #gaming",
-      "image": null
+      "image": "https://video.bsky.app/watch/did%3Aplc%3A6sxe3lodcmi5sutts6fxc2z5/bafkreiewp5x7b2ouqzcey7xf7nrhyc4yhyca3eztftrfyzl2qlxgg2p3le/thumbnail.jpg",
+      "media_type": "video"
     },
     {
       "id": "bsky_3mtya3rqcbs2j",
@@ -131,7 +198,8 @@
       "url": "https://bsky.app/profile/engiedev.bsky.social/post/3mtya3rqcbs2j",
       "date": "2026-08-26T11:28:08.139Z",
       "text": "NOELLE ON THE ESCALATOR\nAt the moment, I’m working on a new location, and here’s one of the mechanics for you.\n\n#gamedev #indiedev #gaming",
-      "image": null
+      "image": "https://video.bsky.app/watch/did%3Aplc%3A6sxe3lodcmi5sutts6fxc2z5/bafkreia4mlt33ul7xjywfvhcab2jcanlk4brxf5bnxqgct7vk56o7mrdla/thumbnail.jpg",
+      "media_type": "video"
     },
     {
       "id": "bsky_3mteg4dq4hs2u",
@@ -141,7 +209,8 @@
       "url": "https://bsky.app/profile/engiedev.bsky.social/post/3mteg4dq4hs2u",
       "date": "2026-08-18T14:22:34.688Z",
       "text": "Add some title \n\n#Gamedev #Indiedev #Gaming",
-      "image": null
+      "image": "https://video.bsky.app/watch/did%3Aplc%3A6sxe3lodcmi5sutts6fxc2z5/bafkreicy74ypcnrjsqszikokqgw2pk65aawpb4ryeyzzmfqw7exa5gmjgy/thumbnail.jpg",
+      "media_type": "video"
     },
     {
       "id": "bsky_3mt2b44bdnk26",
@@ -151,7 +220,8 @@
       "url": "https://bsky.app/profile/engiedev.bsky.social/post/3mt2b44bdnk26",
       "date": "2026-08-14T13:26:20.769Z",
       "text": "Hey guys look at that non-stretch material what I made :D\n\n#Gamedev #Indiedev #Gaming",
-      "image": null
+      "image": "https://video.bsky.app/watch/did%3Aplc%3A6sxe3lodcmi5sutts6fxc2z5/bafkreicp25t5v4j6kdfpukocsy53lfkj6uzcg7lws4ohbnl5iswfwexx3u/thumbnail.jpg",
+      "media_type": "video"
     },
     {
       "id": "bsky_3mszrgulc2c2f",
@@ -161,7 +231,41 @@
       "url": "https://bsky.app/profile/engiedev.bsky.social/post/3mszrgulc2c2f",
       "date": "2026-08-14T08:46:01.934Z",
       "text": "# THE STEAM PAGE IS NOW AVAILABLE TODAY!! \nIt turns out that yesterday at 9 p.m. MSK, the page passed the review. Today I checked my email and saw a silent email saying the page could be published. \nRUNNING TO WISHLIST!!! \nstore.steampowered.com/app/4725960/...\n\n#Gamedev #Indiedev #Steam",
-      "image": null
+      "image": "https://cdn.bsky.app/img/feed_thumbnail/plain/did:plc:6sxe3lodcmi5sutts6fxc2z5/bafkreiahjwywto776ot7v2zb3hxzq7h77x3vjl5x52k3nh5bcga2fvgyhy",
+      "media_type": "link"
+    },
+    {
+      "id": "bsky_3msx5hsd4bc2k",
+      "source": "bluesky",
+      "source_name": "Bluesky",
+      "channel": "@engiedev.bsky.social",
+      "url": "https://bsky.app/profile/engiedev.bsky.social/post/3msx5hsd4bc2k",
+      "date": "2026-08-13T07:43:18.804Z",
+      "text": "Ayo Look at that flying ship rework \n\n#Gamedev #Indidedev #Gaming",
+      "image": "https://cdn.bsky.app/img/feed_thumbnail/plain/did:plc:6sxe3lodcmi5sutts6fxc2z5/bafkreigk45qu7zjrw744fnqfhyki6rq7nijpiz7vqc2y2e7pszwvhsja2e",
+      "media_type": "image"
+    },
+    {
+      "id": "bsky_3mstpen45gk2x",
+      "source": "bluesky",
+      "source_name": "Bluesky",
+      "channel": "@engiedev.bsky.social",
+      "url": "https://bsky.app/profile/engiedev.bsky.social/post/3mstpen45gk2x",
+      "date": "2026-08-11T22:53:01.083Z",
+      "text": "What's new? \n\nGot the netcode fully up and running!! ALL modifications have been completely reworked (again)! More on those in a bit. Water is no longer just decoration but part of the environment you can walk in—plus many other little details.\n\n#Gamedev #indiedev #Gaming",
+      "image": null,
+      "media_type": null
+    },
+    {
+      "id": "bsky_3mstp6hbv322x",
+      "source": "bluesky",
+      "source_name": "Bluesky",
+      "channel": "@engiedev.bsky.social",
+      "url": "https://bsky.app/profile/engiedev.bsky.social/post/3mstp6hbv322x",
+      "date": "2026-08-11T22:49:33.653Z",
+      "text": "HEEEELLLOOOO EVERYONE!!!\n\nI have a new average alpha test for you, Enjoy! (Ru voice)\n\n#Gamedev #Indiedev #Gaming",
+      "image": "https://video.bsky.app/watch/did%3Aplc%3A6sxe3lodcmi5sutts6fxc2z5/bafkreiebwfjk7ovon7uofw7leuqhrvv6znb6f2u7lfpgxgan3oowkdeqly/thumbnail.jpg",
+      "media_type": "video"
     }
   ]
 }
