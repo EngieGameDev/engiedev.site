@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>EngieDEV Team - независимая разработка игр</title>
-<meta name="description" content="EngieDEV Team — независимая разработка игр на Unity 6.">
+<title>EngieDEV Team — независимая разработка игр</title>
+<meta name="description" content="EngieDEV Team — независимая разработка игр на Unity.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎮</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -128,6 +128,11 @@ h1, h2, h3, h4 {
   font-weight: 800;
   font-size: 1.25rem;
   color: #ffffff;
+  transition: opacity 0.15s ease;
+}
+
+.brand:hover {
+  opacity: 0.9;
 }
 
 .brand-badge {
@@ -190,6 +195,12 @@ h1, h2, h3, h4 {
   gap: 5px;
   background: none;
   border: none;
+  padding: 4px;
+  border-radius: 6px;
+}
+
+.burger:hover {
+  background: var(--bg-card);
 }
 
 .burger span {
@@ -199,6 +210,7 @@ h1, h2, h3, h4 {
   background: var(--text-soft);
   border-radius: 2px;
   margin: 0 auto;
+  transition: background 0.2s ease;
 }
 
 /* ПЕРЕКЛЮЧАТЕЛЬ ЯЗЫКА */
@@ -433,16 +445,21 @@ h1, h2, h3, h4 {
 }
 
 .game {
+  display: flex;
+  flex-direction: column;
   background: var(--bg-card);
   border-radius: var(--radius);
   overflow: hidden;
   border: 1px solid var(--border);
+  text-decoration: none;
+  color: inherit;
   transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
 }
 
 .game:hover {
   transform: translateY(-4px);
-  border-color: var(--border-hover);
+  border-color: var(--purple-soft);
   box-shadow: 0 12px 28px rgba(0, 0, 0, 0.4);
 }
 
@@ -455,7 +472,10 @@ h1, h2, h3, h4 {
 }
 
 .game-body {
-  padding: 22px 24px 26px;
+  padding: 22px 24px 24px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 }
 
 .game-tags {
@@ -477,7 +497,7 @@ h1, h2, h3, h4 {
 }
 
 .game-body h3 {
-  font-size: 1.35rem;
+  font-size: 1.38rem;
   color: #ffffff;
   margin-bottom: 8px;
 }
@@ -486,13 +506,23 @@ h1, h2, h3, h4 {
   color: var(--text-soft);
   font-size: 0.95rem;
   line-height: 1.6;
+  flex: 1;
+}
+
+.game-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border);
 }
 
 .game-status {
   font-size: 0.85rem;
   font-weight: 700;
   color: var(--text-main);
-  margin-top: 16px;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -507,6 +537,27 @@ h1, h2, h3, h4 {
 
 .game-status.paused .dot {
   background: var(--amber);
+}
+
+.game-steam-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Baloo 2', sans-serif;
+  font-weight: 700;
+  font-size: 0.88rem;
+  color: var(--purple-soft);
+  background: var(--purple-bg);
+  border: 1px solid #362954;
+  padding: 4px 12px;
+  border-radius: 8px;
+  transition: all 0.15s ease;
+}
+
+.game:hover .game-steam-btn {
+  color: #ffffff;
+  background: var(--purple-main);
+  border-color: var(--purple-main);
 }
 
 /* БЛОК ПЕРЕХОДА В НОВОСТИ */
@@ -668,6 +719,208 @@ h1, h2, h3, h4 {
   font-size: 0.85rem;
 }
 
+/* ПЛАВАЮЩАЯ КНОПКА СВЯЗИ (FAB) */
+.contact-fab {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 900;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 20px;
+  background: var(--bg-card);
+  color: var(--text-main);
+  border: 1px solid var(--border-hover);
+  border-radius: 9999px;
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.45);
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+.contact-fab i {
+  color: var(--purple-soft);
+  font-size: 1.05rem;
+}
+.contact-fab:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--purple-main);
+  transform: translateY(-2px);
+  box-shadow: 0 14px 28px rgba(124, 58, 237, 0.22);
+}
+.contact-fab:active {
+  transform: translateY(0);
+}
+
+/* МОДАЛЬНЫЙ ОВЕРЛЕЙ И ФОРМА */
+.contact-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(7, 6, 11, 0.78);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.22s ease, visibility 0.22s ease;
+}
+.contact-overlay.active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+.contact-modal {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  width: 100%;
+  max-width: 480px;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 26px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+  transform: translateY(16px) scale(0.98);
+  transition: transform 0.22s ease;
+}
+.contact-overlay.active .contact-modal {
+  transform: translateY(0) scale(1);
+}
+.contact-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--border);
+}
+.contact-title {
+  font-family: 'Baloo 2', sans-serif;
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.contact-title i {
+  color: var(--purple-soft);
+}
+.contact-close-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-dim);
+  font-size: 1.7rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 6px;
+  transition: color 0.15s ease, background 0.15s ease;
+}
+.contact-close-btn:hover {
+  color: #fff;
+  background: var(--bg-subtle);
+}
+.contact-group {
+  margin-bottom: 15px;
+  text-align: left;
+}
+.contact-label {
+  display: block;
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: var(--text-soft);
+  margin-bottom: 6px;
+}
+.contact-input, .contact-select, .contact-textarea {
+  width: 100%;
+  padding: 11px 14px;
+  background: var(--bg-subtle);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  color: var(--text-main);
+  font-family: inherit;
+  font-size: 0.94rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  outline: none;
+  box-sizing: border-box;
+}
+.contact-input:focus, .contact-select:focus, .contact-textarea:focus {
+  border-color: var(--border-focus);
+  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.15);
+}
+.contact-select option {
+  background: var(--bg-card);
+  color: var(--text-main);
+}
+.contact-textarea {
+  resize: vertical;
+  min-height: 95px;
+}
+.contact-submit {
+  width: 100%;
+  padding: 13px 20px;
+  background: var(--purple-main);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: 0.98rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: background 0.2s ease, transform 0.15s ease;
+  margin-top: 18px;
+}
+.contact-submit:hover {
+  background: var(--purple-hover);
+}
+.contact-submit:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+.contact-status {
+  margin-top: 14px;
+  padding: 12px 14px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  display: none;
+}
+.contact-status.success {
+  display: block;
+  background: rgba(16, 185, 129, 0.12);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  color: #6ee7b7;
+}
+.contact-status.error {
+  display: block;
+  background: rgba(239, 68, 68, 0.12);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  color: #fca5a5;
+}
+.contact-status.info {
+  display: block;
+  background: rgba(124, 58, 237, 0.12);
+  border: 1px solid rgba(124, 58, 237, 0.3);
+  color: #c4b5fd;
+}
+.contact-note {
+  margin-top: 10px;
+  font-size: 0.78rem;
+  color: var(--text-dim);
+  text-align: center;
+}
+
 /* АДАПТИВНОСТЬ */
 @media (max-width: 780px) {
   .hero-in, .about-in, .games-grid, .news-banner-card {
@@ -711,6 +964,23 @@ h1, h2, h3, h4 {
     display: flex;
   }
 }
+
+@media (max-width: 540px) {
+  .contact-fab {
+    bottom: 18px;
+    right: 18px;
+    padding: 12px 14px;
+  }
+  .contact-fab-text {
+    display: none;
+  }
+  .contact-fab i {
+    font-size: 1.15rem;
+  }
+  .contact-modal {
+    padding: 20px;
+  }
+}
 </style>
 </head>
 <body>
@@ -729,7 +999,7 @@ h1, h2, h3, h4 {
       <div class="nav-links">
         <a href="#about" data-i18n="nav.about">О нас</a>
         <a href="#games" data-i18n="nav.games">Игры</a>
-        <a href="news.html" class="nav-highlight" data-i18n="nav.news">Новости 📰</a>
+        <a href="news.html" class="nav-highlight" data-i18n="nav.news">Новости</a>
         <a href="#socials" data-i18n="nav.socials">Соцсети</a>
       </div>
     </div>
@@ -740,7 +1010,6 @@ h1, h2, h3, h4 {
 <header class="hero" id="top">
   <div class="wrap hero-in">
     <div>
-      <span class="tag"><span class="dot"></span> <span data-i18n="hero.tag">Делаем игры</span></span>
       <h1 data-i18n="hero.title">Создаем игры ради <span class="highlight">веселья</span></h1>
       <p class="lead" data-i18n="hero.lead">EndgieDEV Team — компания тараканов с маракасами.</p>
       <div class="hero-actions">
@@ -749,7 +1018,7 @@ h1, h2, h3, h4 {
       </div>
     </div>
     <div class="hero-art">
-      <div class="frame"><img src="images/game-art-1.jpg" alt="" data-i18n-alt="hero.img" data-i18n-alt-ru="Скриншот из игры" data-i18n-alt-en="Game screenshot"></div>
+      <div class="frame"><img src="images/game-art-1.jpg" alt="" data-i18n-alt="hero.img"></div>
       <img class="hero-mascot" src="images/mascot-hero.png" alt="Engie">
     </div>
   </div>
@@ -761,13 +1030,13 @@ h1, h2, h3, h4 {
     <img src="images/mascot-pose-2.png" alt="Engie on fire">
     <div class="about-content">
       <h2 data-i18n="about.title">Немного о нас</h2>
-      <p data-i18n="about.p1">Мы — небольшая команда друзей-энтузиастов, которые делают игры на Unity 6.</p>
+      <p data-i18n="about.p1">Мы — небольшая команда друзей-энтузиастов, которые делают игры.</p>
       <p data-i18n="about.p2">Наши проекты — это кровь, пот, слезы и тонны энергетиков Burn «тропический микс» и RedBull.</p>
     </div>
   </div>
 </section>
 
-<!-- GAMES -->
+<!-- GAMES (КАРТОЧКИ КЛИКАБЕЛЬНЫ И ВЕДУТ В STEAM) -->
 <section class="section games" id="games">
   <div class="wrap">
     <div class="sec-head">
@@ -776,24 +1045,33 @@ h1, h2, h3, h4 {
       <p data-i18n="games.subtitle">Немного из нашего творчества, которое я так люблю</p>
     </div>
     <div class="games-grid">
-      <article class="game">
-        <video src="videos/game-art-1.mp4" autoplay muted loop playsinline poster="images/game-art-1.jpg"></video>
+      <!-- Игра 1: Lost Skyshard (страница в Steam) -->
+      <a href="https://store.steampowered.com/app/4725960/Lost_Skyshard/" target="_blank" rel="noopener" class="game" title="Lost Skyshard в Steam">
+        <video src="videos/game-art-1.mp4" autoplay muted loop playsinline poster="images/main_capsule.png"></video>
         <div class="game-body">
           <div class="game-tags"><span class="game-tag">Roguelike</span><span class="game-tag">Co-op</span></div>
-          <h3>Lost Windshard</h3>
+          <h3>Lost Skyshard</h3>
           <p data-i18n="games.g1.desc">На архипелаге произошла беда: что-то побудило древнюю силу стражей (монстры и роботы), и они захватили архипелаг, ослабив силу «концентрата» (магический кристалл, дающий силы всему региону). На помощь прибыли герои из региона света, прилетев на летающем корабле. Их задача — добраться до центра архипелага в город и спасти концентрат, истребив стражей.</p>
-          <span class="game-status"><span class="dot"></span> <span data-i18n="games.g1.status">В разработке</span></span>
+          <div class="game-footer">
+            <span class="game-status"><span class="dot"></span> <span data-i18n="games.g1.status">В разработке</span></span>
+            <span class="game-steam-btn"><i class="fa-brands fa-steam"></i> Steam ↗</span>
+          </div>
         </div>
-      </article>
-      <article class="game">
-        <video src="videos/game-art-2.mp4" autoplay muted loop playsinline poster="images/game-art-2.png"></video>
+      </a>
+
+      <!-- Игра 2: Survival City (Страница в Steam) -->
+      <a href="https://store.steampowered.com/app/3242430/Survival_City/" target="_blank" rel="noopener" class="game" title="Survival City в Steam">
+        <video src="videos/game-art-2.mp4" autoplay muted loop playsinline poster="images/game-art-2.jpg"></video>
         <div class="game-body">
           <div class="game-tags"><span class="game-tag">Action</span><span class="game-tag">Survival</span></div>
           <h3>Survival City</h3>
           <p data-i18n="games.g2.desc">Мир поглотила ядерная война, и вы должны выбраться из зоны отчуждения, добывая припасы и разгадав тайну загадочного Церемфия.</p>
-          <span class="game-status paused"><span class="dot"></span> <span data-i18n="games.g2.status">Заморожена до лучших времен...</span></span>
+          <div class="game-footer">
+            <span class="game-status paused"><span class="dot"></span> <span data-i18n="games.g2.status">Заморожена до лучших времен...</span></span>
+            <span class="game-steam-btn"><i class="fa-brands fa-steam"></i> Steam ↗</span>
+          </div>
         </div>
-      </article>
+      </a>
     </div>
   </div>
 </section>
@@ -804,8 +1082,8 @@ h1, h2, h3, h4 {
     <div class="news-banner-card">
       <div class="news-banner-info">
         <span class="eyebrow" data-i18n="news.eyebrow">Девлоги & Анонсы</span>
-        <h3 data-i18n="news.banner_title">Свежие новости разработки</h3>
-        <p data-i18n="news.banner_desc">Мы вынесли всю ленту новостей на отдельную страницу: читайте свежие посты напрямую из Telegram (@gd_engie) и девлоги из Bluesky.</p>
+        <h3 data-i18n="news.banner_title">Последние новости разработки</h3>
+        <p data-i18n="news.banner_desc">Вы можете просмотреть последние новости не заходя в сами соцсети прямо тут!</p>
         <div class="news-banner-channels">
           <span class="news-channel-badge"><i class="fa-brands fa-telegram" style="color:#2AABEE"></i> Telegram (RU)</span>
           <span class="news-channel-badge"><i class="fa-brands fa-bluesky" style="color:#1185FE"></i> Bluesky (EN)</span>
@@ -818,13 +1096,13 @@ h1, h2, h3, h4 {
   </div>
 </section>
 
-<!-- SOCIALS -->
+<!-- SOCIALS (Твиттер полностью убран) -->
 <section class="section" id="socials">
   <div class="wrap">
     <div class="sec-head">
       <span class="eyebrow" data-i18n="socials.eyebrow">На связи</span>
       <h2 data-i18n="socials.title">Соцсети</h2>
-      <p data-i18n="socials.subtitle">Подписывайся — делимся процессом разработки и концептами.</p>
+      <p data-i18n="socials.subtitle">Подписывайся — я общаюсь с подписчиками при каждой удобной возможности.</p>
     </div>
     <div class="socials-grid">
       <a href="https://discord.gg/kw9mMsF53M" target="_blank" rel="noopener" class="social" style="--accent:#5865F2">
@@ -852,12 +1130,7 @@ h1, h2, h3, h4 {
         <h4>YouTube</h4>
         <span data-i18n="soc.youtube">Анонсы</span>
       </a>
-      <a href="https://x.com/EngieDeveloper" target="_blank" rel="noopener" class="social" style="--accent:#1a1a1a">
-        <i class="fa-brands fa-x-twitter"></i>
-        <h4>X (Twitter)</h4>
-        <span data-i18n="soc.twitter">Девлоги</span>
-      </a>
-      <a href="" target="_blank" rel="noopener" class="social" style="--accent:#ff0050">
+      <a href="https://www.tiktok.com/@engiedev.team" target="_blank" rel="noopener" class="social" style="--accent:#ff0050">
         <i class="fa-brands fa-tiktok"></i>
         <h4>TikTok</h4>
         <span data-i18n="soc.tiktok">Видео</span>
@@ -872,21 +1145,81 @@ h1, h2, h3, h4 {
     <img class="footer-mascot" src="images/mascot-pose.jpg" alt="Mascot">
   </div>
   <div class="footer-in">
-    <div class="brand" style="justify-content:center;color:#ffffff"><img src="images/logo.png" class="brand-badge" alt="Logo"> EndgieDEV Team</div>
+    <div class="brand" style="justify-content:center;color:#ffffff"><img src="images/logo.png" class="brand-badge" alt="Logo"> EngieDEV Team</div>
     <p data-i18n="footer.tagline">Создаём игры для души.</p>
   </div>
-  <div class="footer-bottom" data-i18n="footer.copy">© 2026 EngieDEV Team · Независимая разработка игр с душой и своими руками</div>
+  <div class="footer-bottom" data-i18n="footer.copy">Соло-разработчик</div>
 </footer>
+
+<!-- ПЛАВАЮЩАЯ КНОПКА СВЯЗИ (FAB) -->
+<button class="contact-fab" id="openContactFab" type="button" aria-label="Связаться с нами">
+  <i class="fa-solid fa-envelope"></i>
+  <span class="contact-fab-text" data-i18n="contact.fab">Связаться</span>
+</button>
+
+<!-- МОДАЛЬНОЕ ОКНО ПИСЬМА -->
+<div class="contact-overlay" id="contactOverlay" role="dialog" aria-modal="true" aria-hidden="true">
+  <div class="contact-modal">
+    <div class="contact-header">
+      <div class="contact-title">
+        <i class="fa-solid fa-envelope-open-text"></i>
+        <span data-i18n="contact.title">Написать нам</span>
+      </div>
+      <button class="contact-close-btn" id="closeContactBtn" type="button" aria-label="Закрыть">&times;</button>
+    </div>
+    
+    <form id="contactForm" novalidate>
+      <!-- Ключ Web3Forms: бесплатная активация на web3forms.com за 1 минуту -->
+	  <input type="hidden" name="access_key" id="contactAccessKey" value="4676d294-1c47-4df8-bd14-3093988d8fb7">
+      
+      <!-- Защита от спам-ботов -->
+      <input type="checkbox" name="botcheck" style="display:none">
+      
+      <div class="contact-group">
+        <label class="contact-label" for="contactName" data-i18n="contact.name">Ваше имя</label>
+        <input type="text" id="contactName" name="name" class="contact-input" placeholder="Иван / Alex" data-i18n-placeholder="contact.p_name" required>
+      </div>
+
+      <div class="contact-group">
+        <label class="contact-label" for="contactEmail" data-i18n="contact.email">Ваш Email для ответа</label>
+        <input type="email" id="contactEmail" name="email" class="contact-input" placeholder="name@example.com" data-i18n-placeholder="contact.p_email" required>
+      </div>
+
+      <div class="contact-group">
+        <label class="contact-label" for="contactSubject" data-i18n="contact.subject">Тема обращения</label>
+        <select id="contactSubject" name="subject" class="contact-select">
+          <option value="Вопрос по игре / разработке" data-i18n="contact.subj_dev">Вопрос по игре / разработке</option>
+          <option value="Сотрудничество / Издательство" data-i18n="contact.subj_collab">Сотрудничество / Издательство</option>
+          <option value="Баг-репорт / Сообщение об ошибке" data-i18n="contact.subj_bug">Баг-репорт / Предложение</option>
+          <option value="Другое" data-i18n="contact.subj_other">Другое</option>
+        </select>
+      </div>
+
+      <div class="contact-group">
+        <label class="contact-label" for="contactMessage" data-i18n="contact.message">Сообщение</label>
+        <textarea id="contactMessage" name="message" class="contact-textarea" rows="4" placeholder="Ваше сообщение..." data-i18n-placeholder="contact.p_msg" required></textarea>
+      </div>
+
+      <button type="submit" class="contact-submit" id="contactSubmitBtn">
+        <i class="fa-solid fa-paper-plane"></i>
+        <span data-i18n="contact.send">Отправить сообщение</span>
+      </button>
+
+      <div class="contact-status" id="contactStatus"></div>
+      <div class="contact-note" data-i18n="contact.note">Мы ответим на указанный email в ближайшее время</div>
+    </form>
+  </div>
+</div>
 
 <script>
 /* ===== СЛОВАРЬ ЛОКАЛИЗАЦИИ ===== */
 const I18N = {
   ru: {
     'title':'EngieDEV Team — независимая разработка игр',
-    'desc':'EndgieDEV Team — независимая разработка игр на Unity 6.',
+    'desc':'EndgieDEV Team — независимая разработка игр на Unity.',
     'nav.about':'О нас',
     'nav.games':'Игры',
-    'nav.news':'Новости 📰',
+    'nav.news':'Новости',
     'nav.socials':'Соцсети',
     'hero.tag':'Делаем игры',
     'hero.title':'Создаем игры ради <span class="highlight">веселья</span>',
@@ -895,7 +1228,7 @@ const I18N = {
     'hero.btn_news':'Новости & Девлоги',
     'hero.img':'Скриншот из игры',
     'about.title':'Немного о нас',
-    'about.p1':'Мы — небольшая команда друзей-энтузиастов, которые делают игры на Unity 6.',
+    'about.p1':'Мы — небольшая команда друзей-энтузиастов, которые делают игры.',
     'about.p2':'Наши проекты — это кровь, пот, слезы и тонны энергетиков Burn «тропический микс» и RedBull.',
     'games.eyebrow':'Проекты',
     'games.title':'Наши проекты',
@@ -905,28 +1238,47 @@ const I18N = {
     'games.g2.desc':'Мир поглотила ядерная война, и вы должны выбраться из зоны отчуждения, добывая припасы и разгадав тайну загадочного Церемфия.',
     'games.g2.status':'Заморожена до лучших времен...',
     'news.eyebrow':'Девлоги & Анонсы',
-    'news.banner_title':'Свежие новости разработки',
-    'news.banner_desc':'Мы вынесли всю ленту новостей на отдельную страницу: читайте свежие посты напрямую из Telegram (@gd_engie) и девлоги из Bluesky.',
+    'news.banner_title':'Последние новости разработки',
+    'news.banner_desc':'Вы можете просмотреть последние новости не заходя в сами соцсети прямо тут!',
     'news.open_feed':'Открыть ленту новостей →',
     'socials.eyebrow':'На связи',
     'socials.title':'Соцсети',
-    'socials.subtitle':'Подписывайся — делимся процессом разработки и концептами.',
+    'socials.subtitle':'Подписывайся — я общаюсь с подписчиками при каждой удобной возможности.',
     'soc.discord':'Сообщество',
     'soc.telegram':'Новости',
     'soc.steam':'Куратор',
     'soc.bsky':'Девлоги',
     'soc.youtube':'Анонсы',
-    'soc.twitter':'Девлоги',
     'soc.tiktok':'Видео',
     'footer.tagline':'Создаём игры для души.',
-    'footer.copy':'© 2026 EngieDEV Team · Независимая разработка игр с душой и своими руками'
+    'footer.copy':'Соло-разработчик',
+    'contact.fab':'Связаться',
+    'contact.title':'Написать нам',
+    'contact.name':'Ваше имя',
+    'contact.email':'Ваш Email для ответа',
+    'contact.subject':'Тема обращения',
+    'contact.subj_dev':'Вопрос по игре / разработке',
+    'contact.subj_collab':'Сотрудничество / Издательство',
+    'contact.subj_bug':'Баг-репорт / Предложение',
+    'contact.subj_other':'Другое',
+    'contact.message':'Сообщение',
+    'contact.send':'Отправить сообщение',
+    'contact.sending':'Отправка...',
+    'contact.note':'Мы ответим на указанный email в ближайшее время',
+    'contact.p_name':'Иван / Alex',
+    'contact.p_email':'name@example.com',
+    'contact.p_msg':'Ваше сообщение...',
+    'contact.success':'Спасибо! Ваше сообщение отправлено. Мы ответим вам в ближайшее время.',
+    'contact.error':'Произошла ошибка при отправке. Пожалуйста, попробуйте снова.',
+    'contact.fill_fields':'Пожалуйста, заполните все обязательные поля.',
+    'contact.demo_notice':'Форма настроена! Чтобы письма приходили на вашу личную почту, укажите бесплатный ключ Web3Forms в поле формы (см. инструкцию в README).'
   },
   en: {
     'title':'EngieDEV Team — Indie Game Development',
-    'desc':'EndgieDEV Team — independent game development in Unity 6.',
+    'desc':'EndgieDEV Team — independent game development in Unity.',
     'nav.about':'About',
     'nav.games':'Games',
-    'nav.news':'News 📰',
+    'nav.news':'News',
     'nav.socials':'Socials',
     'hero.tag':'Making games',
     'hero.title':'Making games for <span class="highlight">fun</span>',
@@ -935,7 +1287,7 @@ const I18N = {
     'hero.btn_news':'News & Devlogs',
     'hero.img':'Game screenshot',
     'about.title':'A bit about us',
-    'about.p1':'We are a small team of enthusiastic friends making games in Unity 6.',
+    'about.p1':'We are a small team of enthusiastic friends making games.',
     'about.p2':'Our projects are blood, sweat, tears, and tons of Burn “tropical mix” and RedBull energy drinks.',
     'games.eyebrow':'Projects',
     'games.title':'Our projects',
@@ -946,20 +1298,39 @@ const I18N = {
     'games.g2.status':'On hold until better times...',
     'news.eyebrow':'Devlogs & Updates',
     'news.banner_title':'Latest Development Updates',
-    'news.banner_desc':'Our full news feed is hosted on a dedicated page: check out posts directly from Telegram (@gd_engie) and devlogs from Bluesky.',
+    'news.banner_desc':'Check out the latest updates right here without having to open the social apps!',
     'news.open_feed':'Open news feed →',
     'socials.eyebrow':'Stay in touch',
     'socials.title':'Socials',
-    'socials.subtitle':'Follow us — we share our dev process and concepts.',
+    'socials.subtitle':'Follow along — I chat with followers whenever I get the chance.',
     'soc.discord':'Community',
     'soc.telegram':'News',
     'soc.steam':'Curator',
     'soc.bsky':'Devlogs',
     'soc.youtube':'Announcements',
-    'soc.twitter':'Devlogs',
     'soc.tiktok':'Videos',
     'footer.tagline':'Making games with heart.',
-    'footer.copy':'© 2026 EngieDEV Team · Indie game development with passion and heart'
+    'footer.copy':'Solo-developer',
+    'contact.fab':'Contact',
+    'contact.title':'Contact Us',
+    'contact.name':'Your Name',
+    'contact.email':'Your Email for reply',
+    'contact.subject':'Subject',
+    'contact.subj_dev':'Game / Dev Question',
+    'contact.subj_collab':'Cooperation / Publishing',
+    'contact.subj_bug':'Bug Report / Feedback',
+    'contact.subj_other':'Other',
+    'contact.message':'Message',
+    'contact.send':'Send Message',
+    'contact.sending':'Sending...',
+    'contact.note':'We will reply to your email as soon as possible',
+    'contact.p_name':'John / Alex',
+    'contact.p_email':'name@example.com',
+    'contact.p_msg':'Your message...',
+    'contact.success':'Thank you! Your message has been sent. We will get back to you soon.',
+    'contact.error':'An error occurred while sending. Please try again.',
+    'contact.fill_fields':'Please fill in all required fields.',
+    'contact.demo_notice':'Form is ready! To receive messages in your inbox, add your free Web3Forms key to the form (see README).'
   }
 };
 
@@ -976,6 +1347,11 @@ function setLang(lang){
     const txt = I18N[lang][key];
     if(txt !== undefined) el.setAttribute('alt', txt);
   });
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el=>{
+    const key = el.dataset.i18nPlaceholder;
+    const txt = I18N[lang][key];
+    if(txt !== undefined) el.setAttribute('placeholder', txt);
+  });
   document.title = I18N[lang]['title'];
   document.querySelector('meta[name="description"]').setAttribute('content', I18N[lang]['desc']);
   document.querySelectorAll('.lang-toggle button').forEach(b=>{
@@ -988,7 +1364,118 @@ document.querySelectorAll('.lang-toggle button').forEach(b=>{
   b.addEventListener('click', ()=> setLang(b.dataset.lang));
 });
 
+// Закрытие мобильного меню при клике на любую ссылку
+document.querySelectorAll('.nav-links a').forEach(a => {
+  a.addEventListener('click', () => {
+    const navToggle = document.getElementById('navToggle');
+    if (navToggle) navToggle.checked = false;
+  });
+});
+
+/* ===== МОДАЛЬНОЕ ОКНО ОБРАТНОЙ СВЯЗИ ===== */
+const contactFab = document.getElementById('openContactFab');
+const contactOverlay = document.getElementById('contactOverlay');
+const closeContactBtn = document.getElementById('closeContactBtn');
+const contactForm = document.getElementById('contactForm');
+const contactStatus = document.getElementById('contactStatus');
+const contactSubmitBtn = document.getElementById('contactSubmitBtn');
+const contactAccessKey = document.getElementById('contactAccessKey');
+
+function openContactModal() {
+  if (!contactOverlay) return;
+  contactOverlay.classList.add('active');
+  contactOverlay.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+  const nameInput = document.getElementById('contactName');
+  if (nameInput) setTimeout(() => nameInput.focus(), 100);
+}
+
+function closeContactModal() {
+  if (!contactOverlay) return;
+  contactOverlay.classList.remove('active');
+  contactOverlay.setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = '';
+}
+
+if (contactFab) contactFab.addEventListener('click', openContactModal);
+if (closeContactBtn) closeContactBtn.addEventListener('click', closeContactModal);
+if (contactOverlay) {
+  contactOverlay.addEventListener('click', (e) => {
+    if (e.target === contactOverlay) closeContactModal();
+  });
+}
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && contactOverlay && contactOverlay.classList.contains('active')) {
+    closeContactModal();
+  }
+});
+
+if (contactForm) {
+  contactForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const curL = document.documentElement.lang || 'ru';
+    
+    const nameVal = document.getElementById('contactName').value.trim();
+    const emailVal = document.getElementById('contactEmail').value.trim();
+    const msgVal = document.getElementById('contactMessage').value.trim();
+    
+    if (!nameVal || !emailVal || !msgVal) {
+      contactStatus.className = 'contact-status error';
+      contactStatus.textContent = I18N[curL]['contact.fill_fields'];
+      return;
+    }
+
+    const key = contactAccessKey ? contactAccessKey.value.trim() : '';
+    
+    contactSubmitBtn.disabled = true;
+    const originalBtnHtml = contactSubmitBtn.innerHTML;
+    contactSubmitBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> <span>${I18N[curL]['contact.sending']}</span>`;
+    contactStatus.className = 'contact-status';
+    contactStatus.style.display = 'none';
+
+    // Демо-режим, если ключ еще не введен
+    if (!key || key === 'YOUR_ACCESS_KEY_HERE') {
+      setTimeout(() => {
+        contactSubmitBtn.disabled = false;
+        contactSubmitBtn.innerHTML = originalBtnHtml;
+        contactStatus.className = 'contact-status info';
+        contactStatus.innerHTML = `<i class="fa-solid fa-circle-info"></i> ${I18N[curL]['contact.demo_notice']}`;
+      }, 500);
+      return;
+    }
+
+    try {
+      const formData = new FormData(contactForm);
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'Accept': 'application/json'
+        }
+      });
+      const data = await res.json();
+      
+      contactSubmitBtn.disabled = false;
+      contactSubmitBtn.innerHTML = originalBtnHtml;
+      
+      if (data.success) {
+        contactStatus.className = 'contact-status success';
+        contactStatus.innerHTML = `<i class="fa-solid fa-circle-check"></i> ${I18N[curL]['contact.success']}`;
+        contactForm.reset();
+      } else {
+        contactStatus.className = 'contact-status error';
+        contactStatus.textContent = data.message || I18N[curL]['contact.error'];
+      }
+    } catch (err) {
+      contactSubmitBtn.disabled = false;
+      contactSubmitBtn.innerHTML = originalBtnHtml;
+      contactStatus.className = 'contact-status error';
+      contactStatus.textContent = I18N[curL]['contact.error'];
+    }
+  });
+}
+
 setLang(localStorage.getItem('lang') || 'ru');
 </script>
-</body>
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a509932c79266051',t:'MTc5MzAxODkwMg=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>

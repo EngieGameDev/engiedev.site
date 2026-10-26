@@ -381,7 +381,7 @@ h1, h2, h3, h4 {
   word-break: break-word;
 }
 
-/* МЕДИА: ВИДЕО И КАРТИНКИ */
+/* МЕДИА: GIF, ВИДЕО И КАРТИНКИ */
 .post-media-wrap {
   position: relative;
   border-radius: 10px;
@@ -399,6 +399,14 @@ h1, h2, h3, h4 {
 }
 
 .post-media-img {
+  width: 100%;
+  aspect-ratio: 16/9;
+  object-fit: cover;
+  display: block;
+  background: #110f17;
+}
+
+.post-media-wrap.is-gif video {
   width: 100%;
   aspect-ratio: 16/9;
   object-fit: cover;
@@ -449,6 +457,11 @@ h1, h2, h3, h4 {
   align-items: center;
   gap: 5px;
   font-family: 'Baloo 2', sans-serif;
+}
+
+.post-media-badge.badge-gif {
+  background: rgba(124, 58, 237, 0.88);
+  border-color: #a78bfa;
 }
 
 .post-footer {
@@ -503,6 +516,225 @@ h1, h2, h3, h4 {
   }
   .channel-link-btn {
     justify-content: center;
+  }
+}
+
+/* ПЛАВАЮЩАЯ КНОПКА СВЯЗИ (FAB) */
+.contact-fab {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 900;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 20px;
+  background: var(--bg-card);
+  color: var(--text-main);
+  border: 1px solid var(--border-hover);
+  border-radius: 9999px;
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.45);
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+.contact-fab i {
+  color: var(--purple-soft);
+  font-size: 1.05rem;
+}
+.contact-fab:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--purple-main);
+  transform: translateY(-2px);
+  box-shadow: 0 14px 28px rgba(124, 58, 237, 0.22);
+}
+.contact-fab:active {
+  transform: translateY(0);
+}
+
+/* МОДАЛЬНЫЙ ОВЕРЛЕЙ И ФОРМА */
+.contact-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(7, 6, 11, 0.78);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.22s ease, visibility 0.22s ease;
+}
+.contact-overlay.active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+.contact-modal {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  width: 100%;
+  max-width: 480px;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 26px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+  transform: translateY(16px) scale(0.98);
+  transition: transform 0.22s ease;
+}
+.contact-overlay.active .contact-modal {
+  transform: translateY(0) scale(1);
+}
+.contact-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--border);
+}
+.contact-title {
+  font-family: 'Baloo 2', sans-serif;
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.contact-title i {
+  color: var(--purple-soft);
+}
+.contact-close-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-dim);
+  font-size: 1.7rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 6px;
+  transition: color 0.15s ease, background 0.15s ease;
+}
+.contact-close-btn:hover {
+  color: #fff;
+  background: var(--bg-subtle);
+}
+.contact-group {
+  margin-bottom: 15px;
+  text-align: left;
+}
+.contact-label {
+  display: block;
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: var(--text-soft);
+  margin-bottom: 6px;
+}
+.contact-input, .contact-select, .contact-textarea {
+  width: 100%;
+  padding: 11px 14px;
+  background: var(--bg-subtle);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  color: var(--text-main);
+  font-family: inherit;
+  font-size: 0.94rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  outline: none;
+  box-sizing: border-box;
+}
+.contact-input:focus, .contact-select:focus, .contact-textarea:focus {
+  border-color: var(--border-focus);
+  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.15);
+}
+.contact-select option {
+  background: var(--bg-card);
+  color: var(--text-main);
+}
+.contact-textarea {
+  resize: vertical;
+  min-height: 95px;
+}
+.contact-submit {
+  width: 100%;
+  padding: 13px 20px;
+  background: var(--purple-main);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: 0.98rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: background 0.2s ease, transform 0.15s ease;
+  margin-top: 18px;
+}
+.contact-submit:hover {
+  background: var(--purple-hover);
+}
+.contact-submit:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+.contact-status {
+  margin-top: 14px;
+  padding: 12px 14px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  display: none;
+}
+.contact-status.success {
+  display: block;
+  background: rgba(16, 185, 129, 0.12);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  color: #6ee7b7;
+}
+.contact-status.error {
+  display: block;
+  background: rgba(239, 68, 68, 0.12);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  color: #fca5a5;
+}
+.contact-status.info {
+  display: block;
+  background: rgba(124, 58, 237, 0.12);
+  border: 1px solid rgba(124, 58, 237, 0.3);
+  color: #c4b5fd;
+}
+.contact-note {
+  margin-top: 10px;
+  font-size: 0.78rem;
+  color: var(--text-dim);
+  text-align: center;
+}
+
+@media (max-width: 540px) {
+  .contact-fab {
+    bottom: 18px;
+    right: 18px;
+    padding: 12px 14px;
+  }
+  .contact-fab-text {
+    display: none;
+  }
+  .contact-fab i {
+    font-size: 1.15rem;
+  }
+  .contact-modal {
+    padding: 20px;
   }
 }
 </style>
@@ -569,8 +801,65 @@ h1, h2, h3, h4 {
 
 <!-- ФУТЕР -->
 <footer class="footer" data-i18n="footer.copy">
-  © 2026 EngieDEV Team · Независимая разработка игр с душой и своими руками
+  Соло-разработчик
 </footer>
+
+<!-- ПЛАВАЮЩАЯ КНОПКА СВЯЗИ (FAB) -->
+<button class="contact-fab" id="openContactFab" type="button" aria-label="Связаться с нами">
+  <i class="fa-solid fa-envelope"></i>
+  <span class="contact-fab-text" data-i18n="contact.fab">Связаться</span>
+</button>
+
+<!-- МОДАЛЬНОЕ ОКНО ПИСЬМА -->
+<div class="contact-overlay" id="contactOverlay" role="dialog" aria-modal="true" aria-hidden="true">
+  <div class="contact-modal">
+    <div class="contact-header">
+      <div class="contact-title">
+        <i class="fa-solid fa-envelope-open-text"></i>
+        <span data-i18n="contact.title">Написать нам</span>
+      </div>
+      <button class="contact-close-btn" id="closeContactBtn" type="button" aria-label="Закрыть">&times;</button>
+    </div>
+    
+    <form id="contactForm" novalidate>
+	  <input type="hidden" name="access_key" id="contactAccessKey" value="4676d294-1c47-4df8-bd14-3093988d8fb7">
+      <input type="checkbox" name="botcheck" style="display:none">
+      
+      <div class="contact-group">
+        <label class="contact-label" for="contactName" data-i18n="contact.name">Ваше имя</label>
+        <input type="text" id="contactName" name="name" class="contact-input" placeholder="Иван / Alex" data-i18n-placeholder="contact.p_name" required>
+      </div>
+
+      <div class="contact-group">
+        <label class="contact-label" for="contactEmail" data-i18n="contact.email">Ваш Email для ответа</label>
+        <input type="email" id="contactEmail" name="email" class="contact-input" placeholder="name@example.com" data-i18n-placeholder="contact.p_email" required>
+      </div>
+
+      <div class="contact-group">
+        <label class="contact-label" for="contactSubject" data-i18n="contact.subject">Тема обращения</label>
+        <select id="contactSubject" name="subject" class="contact-select">
+          <option value="Вопрос по игре / разработке" data-i18n="contact.subj_dev">Вопрос по игре / разработке</option>
+          <option value="Сотрудничество / Издательство" data-i18n="contact.subj_collab">Сотрудничество / Издательство</option>
+          <option value="Баг-репорт / Сообщение об ошибке" data-i18n="contact.subj_bug">Баг-репорт / Предложение</option>
+          <option value="Другое" data-i18n="contact.subj_other">Другое</option>
+        </select>
+      </div>
+
+      <div class="contact-group">
+        <label class="contact-label" for="contactMessage" data-i18n="contact.message">Сообщение</label>
+        <textarea id="contactMessage" name="message" class="contact-textarea" rows="4" placeholder="Ваше сообщение..." data-i18n-placeholder="contact.p_msg" required></textarea>
+      </div>
+
+      <button type="submit" class="contact-submit" id="contactSubmitBtn">
+        <i class="fa-solid fa-paper-plane"></i>
+        <span data-i18n="contact.send">Отправить сообщение</span>
+      </button>
+
+      <div class="contact-status" id="contactStatus"></div>
+      <div class="contact-note" data-i18n="contact.note">Мы ответим на указанный email в ближайшее время</div>
+    </form>
+  </div>
+</div>
 
 <script>
 const I18N = {
@@ -586,9 +875,30 @@ const I18N = {
     'news.open_post':'Открыть пост →',
     'news.refresh':'Обновить',
     'news.video_badge':'Видео',
+    'news.gif_badge':'GIF',
     'news.link_badge':'Ссылка',
     'news.empty':'Пока нет записей в этом канале.',
-    'footer.copy':'© 2026 EngieDEV Team · Независимая разработка игр с душой и своими руками'
+    'footer.copy':'Соло-разработчик',
+    'contact.fab':'Связаться',
+    'contact.title':'Написать нам',
+    'contact.name':'Ваше имя',
+    'contact.email':'Ваш Email для ответа',
+    'contact.subject':'Тема обращения',
+    'contact.subj_dev':'Вопрос по игре / разработке',
+    'contact.subj_collab':'Сотрудничество / Издательство',
+    'contact.subj_bug':'Баг-репорт / Предложение',
+    'contact.subj_other':'Другое',
+    'contact.message':'Сообщение',
+    'contact.send':'Отправить сообщение',
+    'contact.sending':'Отправка...',
+    'contact.note':'Мы ответим на указанный email в ближайшее время',
+    'contact.p_name':'Иван / Alex',
+    'contact.p_email':'name@example.com',
+    'contact.p_msg':'Ваше сообщение...',
+    'contact.success':'Спасибо! Ваше сообщение отправлено. Мы ответим вам в ближайшее время.',
+    'contact.error':'Произошла ошибка при отправке. Пожалуйста, попробуйте снова.',
+    'contact.fill_fields':'Пожалуйста, заполните все обязательные поля.',
+    'contact.demo_notice':'Форма настроена! Чтобы письма приходили на вашу личную почту, укажите бесплатный ключ Web3Forms в поле формы (см. инструкцию в README).'
   },
   en: {
     'title':'News & Devlogs — EngieDEV Team',
@@ -602,9 +912,30 @@ const I18N = {
     'news.open_post':'Open post →',
     'news.refresh':'Refresh',
     'news.video_badge':'Video',
+    'news.gif_badge':'GIF',
     'news.link_badge':'Link',
     'news.empty':'No posts found in this feed yet.',
-    'footer.copy':'© 2026 EngieDEV Team · Indie game development with passion and heart'
+    'footer.copy':'Solo-developer',
+    'contact.fab':'Contact',
+    'contact.title':'Contact Us',
+    'contact.name':'Your Name',
+    'contact.email':'Your Email for reply',
+    'contact.subject':'Subject',
+    'contact.subj_dev':'Game / Dev Question',
+    'contact.subj_collab':'Cooperation / Publishing',
+    'contact.subj_bug':'Bug Report / Feedback',
+    'contact.subj_other':'Other',
+    'contact.message':'Message',
+    'contact.send':'Send Message',
+    'contact.sending':'Sending...',
+    'contact.note':'We will reply to your email as soon as possible',
+    'contact.p_name':'John / Alex',
+    'contact.p_email':'name@example.com',
+    'contact.p_msg':'Your message...',
+    'contact.success':'Thank you! Your message has been sent. We will get back to you soon.',
+    'contact.error':'An error occurred while sending. Please try again.',
+    'contact.fill_fields':'Please fill in all required fields.',
+    'contact.demo_notice':'Form is ready! To receive messages in your inbox, add your free Web3Forms key to the form (see README).'
   }
 };
 
@@ -619,6 +950,11 @@ function setLang(lang){
     const key = el.dataset.i18n;
     const txt = I18N[lang][key];
     if(txt !== undefined) el.innerHTML = txt;
+  });
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el=>{
+    const key = el.dataset.i18nPlaceholder;
+    const txt = I18N[lang][key];
+    if(txt !== undefined) el.setAttribute('placeholder', txt);
   });
   document.title = I18N[lang]['title'];
   document.querySelector('meta[name="description"]').setAttribute('content', I18N[lang]['desc']);
@@ -682,34 +1018,44 @@ function renderCards(posts) {
     const readText = I18N[currentLang]['news.open_post'];
     const safeText = escapeHtml(post.text || '');
 
-    // Отрисовка медиа
+    // Отрисовка медиа (GIF, видео, ссылка или картинка)
     let mediaHtml = '';
-    if (post.image) {
-      const isVideo = post.media_type === 'video';
-      const isLink = post.media_type === 'link';
-      
-      if (isVideo) {
-        mediaHtml = `
-          <a href="${post.url}" target="_blank" rel="noopener" class="post-media-wrap is-video" title="${readText}">
-            <img src="${post.image}" class="post-media-img" alt="Video preview" loading="lazy">
-            <div class="post-play-btn"><i class="fa-solid fa-play"></i></div>
-            <span class="post-media-badge"><i class="fa-solid fa-play"></i> ${I18N[currentLang]['news.video_badge']}</span>
-          </a>
-        `;
-      } else if (isLink) {
-        mediaHtml = `
-          <a href="${post.url}" target="_blank" rel="noopener" class="post-media-wrap is-link" title="${readText}">
-            <img src="${post.image}" class="post-media-img" alt="Link preview" loading="lazy">
-            <span class="post-media-badge"><i class="fa-solid fa-arrow-up-right-from-square"></i> ${I18N[currentLang]['news.link_badge']}</span>
-          </a>
-        `;
-      } else {
-        mediaHtml = `
-          <a href="${post.url}" target="_blank" rel="noopener" class="post-media-wrap is-image" title="${readText}">
-            <img src="${post.image}" class="post-media-img" alt="Attached photo" loading="lazy">
-          </a>
-        `;
-      }
+    const isGif = post.media_type === 'gif';
+    const isVideo = post.media_type === 'video';
+    const isLink = post.media_type === 'link';
+
+    if (isGif) {
+      mediaHtml = `
+        <a href="${post.url}" target="_blank" rel="noopener" class="post-media-wrap is-gif" title="${readText}">
+          ${post.video_src ? `
+            <video src="${post.video_src}" poster="${post.image || ''}" autoplay muted loop playsinline class="post-media-img"></video>
+          ` : `
+            <img src="${post.image}" class="post-media-img" alt="GIF preview" loading="lazy">
+          `}
+          <span class="post-media-badge badge-gif"><i class="fa-solid fa-bolt"></i> ${I18N[currentLang]['news.gif_badge']}</span>
+        </a>
+      `;
+    } else if (isVideo && post.image) {
+      mediaHtml = `
+        <a href="${post.url}" target="_blank" rel="noopener" class="post-media-wrap is-video" title="${readText}">
+          <img src="${post.image}" class="post-media-img" alt="Video preview" loading="lazy">
+          <div class="post-play-btn"><i class="fa-solid fa-play"></i></div>
+          <span class="post-media-badge"><i class="fa-solid fa-play"></i> ${I18N[currentLang]['news.video_badge']}</span>
+        </a>
+      `;
+    } else if (isLink && post.image) {
+      mediaHtml = `
+        <a href="${post.url}" target="_blank" rel="noopener" class="post-media-wrap is-link" title="${readText}">
+          <img src="${post.image}" class="post-media-img" alt="Link preview" loading="lazy">
+          <span class="post-media-badge"><i class="fa-solid fa-arrow-up-right-from-square"></i> ${I18N[currentLang]['news.link_badge']}</span>
+        </a>
+      `;
+    } else if (post.image) {
+      mediaHtml = `
+        <a href="${post.url}" target="_blank" rel="noopener" class="post-media-wrap is-image" title="${readText}">
+          <img src="${post.image}" class="post-media-img" alt="Attached photo" loading="lazy">
+        </a>
+      `;
     }
 
     return `
@@ -795,6 +1141,12 @@ async function fetchLiveBluesky() {
         mediaUrl = embed.external.thumb;
       }
 
+      let text = rec.text || '';
+      if (!text) {
+        if (mediaType === 'video') text = 'New game dev video';
+        else if (mediaType === 'image') text = 'New game dev screenshot';
+      }
+
       posts.push({
         id: 'bsky_' + rkey,
         source: 'bluesky',
@@ -802,8 +1154,9 @@ async function fetchLiveBluesky() {
         channel: '@engiedev.bsky.social',
         url: `https://bsky.app/profile/engiedev.bsky.social/post/${rkey}`,
         date: rec.createdAt,
-        text: rec.text,
+        text: text,
         image: mediaUrl,
+        video_src: null,
         media_type: mediaType
       });
     }
@@ -828,56 +1181,37 @@ async function loadFeed() {
     newsCache = {
       ru: [
         {
-          id: "tg_567",
+          id: "tg_596",
           source: "telegram",
           channel: "@gd_engie",
-          url: "https://t.me/gd_engie/567",
-          date: "2026-09-16T20:53:54+00:00",
-          text: "Хватит угарать",
-          image: null,
-          media_type: null
-        },
-        {
-          id: "tg_566",
-          source: "telegram",
-          channel: "@gd_engie",
-          url: "https://t.me/gd_engie/566",
-          date: "2026-09-16T20:43:46+00:00",
-          text: "Всем добрый вечер! С горем попалам нашел композитора для игрульки, он написал тестовую демку. Мне сложно это судить, нужно ухо публики!",
-          image: null,
-          media_type: null
-        },
-        {
-          id: "tg_560",
-          source: "telegram",
-          channel: "@gd_engie",
-          url: "https://t.me/gd_engie/560",
-          date: "2026-09-14T10:18:49+00:00",
-          text: "Чтож, эээ, новая неделя, новая попытка подружиться с Тик-ток. Я в очередной раз создал новый аккаунт в надежде найти с ним общий язык...\nКстати вот одно из видео.",
-          image: "https://cdn4.telesco.pe/file/fq1EEFly9SH5dQQD27HZYSm39WKr4w0rkOdcd-4LwYydX-QeGY030K5yC71u93K9K37b5iG8b6q7aV3Z69yK_80b-A.jpg",
+          url: "https://t.me/gd_engie/596",
+          date: "2026-10-25T13:35:59+00:00",
+          text: "Новое видео разработки 🎮",
+          image: "https://cdn4.telesco.pe/file/SGFVlH2fc4DHJ5MTJjfeeUxBrY_UhALXCDtg96sWw7d0I621oWc3qXIVuo0WShW50NfgWC9MSwgDmqhoxSQ26nOv3msYHcS4W1I0-RlAyKj5DNdasXxRaff6zScFk5R3WeWJqt5O5cxsK5-Dj2ANb_JE_eos4WVbgr7_OFcff81O-VE-uH4CK2eRRa4ecQz01qlOB99ZLljYWuXxTuGWcRg25Nlar70WObqGIRgtwa-Epr51XQc0WL3Q9AZ1l6MypmUA_djFqbRLs8ZKZAUDZ9A9o5K-U0fRuY1X_JK8CUkgLef6byN1RqpQmD-CRrRlo_x6K_NjL63OyMQrCvs2dQ",
+          video_src: null,
           media_type: "video"
-        }
-      ],
-      en: [
-        {
-          id: "bsky_3mvncfyfh4c2v",
-          source: "bluesky",
-          channel: "@engiedev.bsky.social",
-          url: "https://bsky.app/profile/engiedev.bsky.social/post/3mvncfyfh4c2v",
-          date: "2026-09-16T14:00:44.285Z",
-          text: "I’ve been wondering whether it’s even worth including meta-progression or any kind of account-leveling system in the game. What do you think?",
-          image: null,
-          media_type: null
         },
         {
-          id: "bsky_3mu3fyihgjk2o",
-          source: "bluesky",
-          channel: "@engiedev.bsky.social",
-          url: "https://bsky.app/profile/engiedev.bsky.social/post/3mu3fyihgjk2o",
-          date: "2026-08-27T17:51:39.399Z",
-          text: "We are close to complete new location, here a first look \n\n#Gamedev #Indiedev #gaming",
-          image: "https://video.bsky.app/watch/did%3Aplc%3A6sxe3lodcmi5sutts6fxc2z5/bafkreiewp5x7b2ouqzcey7xf7nrhyc4yhyca3eztftrfyzl2qlxgg2p3le/thumbnail.jpg",
-          media_type: "video"
+          id: "tg_594",
+          source: "telegram",
+          channel: "@gd_engie",
+          url: "https://t.me/gd_engie/594",
+          date: "2026-10-22T09:39:08+00:00",
+          text: "Анимация из игры (GIF) 🎮",
+          image: "https://cdn4.telesco.pe/file/meIbeO3WOLbWop1C3kwlvcBLx7zlHDq",
+          video_src: "https://cdn4.telesco.pe/file/21528150ae.mp4?token=ujTIXy9gCUpjkKR9L3fJUiFTJEAT3d1fWDxkYAoxf7z9V1QNCaBflpOgNkVA0ms3pQG8atMGUaari3Gyv3Qo4jONQ9J01umra69DLVmw8ChFyIhM3OTmqsanwqcD-bbUgZgTJ1Te-zrYxW69TVVnZVZ0EwDNdzIRlp8uoqX5MA_gKTaf3VimDtZcec20RU5j1l733UKmhVZIHM8EEvOfVpJJOn3lyvt9V_8eBumCrdRK2mbnJ3ZwTi7EOIfgoq0n2qfN8MXpjWcvtEoltdPyE4ngvfxq6lDDV3lljqv6c3PXhyogtnuKKGmKuXkKoTUnsJV8LzZJHD4TaY11N6lMJg",
+          media_type: "gif"
+        },
+        {
+          id: "tg_578",
+          source: "telegram",
+          channel: "@gd_engie",
+          url: "https://t.me/gd_engie/578",
+          date: "2026-09-26T09:41:30+00:00",
+          text: "Анимация из игры (GIF) 🎮",
+          image: "https://cdn4.telesco.pe/file/cfPatGUN0QQ4e_sfrfUKwLbiLR_KGqR",
+          video_src: "https://cdn4.telesco.pe/file/cb8d342a62.mp4?token=iQJ6TK1D9aB65iXq5CZPm5nUJWubcBnJUDE8oOuy7ezHof5DqjrzVFQDYOOQ-vW-o0bjXgTMi_Hp9TLXuz6Pz9hjVYmzq8BxYztuPDeyS0zyvPsm3UA7G_4jcbFPAJxUutdhJXk4ZA5J4uqQb0TaiIyPhElyco-jh6E-vAlyewfvPocs62KakMSQJl8K7660in1xNfG0F405YNgP_Vb6tRSms2nCFmb0P0e65XeT9kbeLS4yA-LEdNYoyfKEDYlOq8tOH0AhyA66CPpe08-9C5CtpLXFAdTfmPO9Hy6TEUm7xaABNG4DEtBGV44CbbJv-loroPQ9GigeHLjHhxC3bg",
+          media_type: "gif"
         }
       ]
     };
@@ -907,8 +1241,110 @@ if (refreshBtn) {
   });
 }
 
+/* ===== МОДАЛЬНОЕ ОКНО ОБРАТНОЙ СВЯЗИ ===== */
+const contactFab = document.getElementById('openContactFab');
+const contactOverlay = document.getElementById('contactOverlay');
+const closeContactBtn = document.getElementById('closeContactBtn');
+const contactForm = document.getElementById('contactForm');
+const contactStatus = document.getElementById('contactStatus');
+const contactSubmitBtn = document.getElementById('contactSubmitBtn');
+const contactAccessKey = document.getElementById('contactAccessKey');
+
+function openContactModal() {
+  if (!contactOverlay) return;
+  contactOverlay.classList.add('active');
+  contactOverlay.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+  const nameInput = document.getElementById('contactName');
+  if (nameInput) setTimeout(() => nameInput.focus(), 100);
+}
+
+function closeContactModal() {
+  if (!contactOverlay) return;
+  contactOverlay.classList.remove('active');
+  contactOverlay.setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = '';
+}
+
+if (contactFab) contactFab.addEventListener('click', openContactModal);
+if (closeContactBtn) closeContactBtn.addEventListener('click', closeContactModal);
+if (contactOverlay) {
+  contactOverlay.addEventListener('click', (e) => {
+    if (e.target === contactOverlay) closeContactModal();
+  });
+}
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && contactOverlay && contactOverlay.classList.contains('active')) {
+    closeContactModal();
+  }
+});
+
+if (contactForm) {
+  contactForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const curL = currentLang || 'ru';
+    
+    const nameVal = document.getElementById('contactName').value.trim();
+    const emailVal = document.getElementById('contactEmail').value.trim();
+    const msgVal = document.getElementById('contactMessage').value.trim();
+    
+    if (!nameVal || !emailVal || !msgVal) {
+      contactStatus.className = 'contact-status error';
+      contactStatus.textContent = I18N[curL]['contact.fill_fields'];
+      return;
+    }
+
+    const key = contactAccessKey ? contactAccessKey.value.trim() : '';
+    
+    contactSubmitBtn.disabled = true;
+    const originalBtnHtml = contactSubmitBtn.innerHTML;
+    contactSubmitBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> <span>${I18N[curL]['contact.sending']}</span>`;
+    contactStatus.className = 'contact-status';
+    contactStatus.style.display = 'none';
+
+    if (!key || key === 'YOUR_ACCESS_KEY_HERE') {
+      setTimeout(() => {
+        contactSubmitBtn.disabled = false;
+        contactSubmitBtn.innerHTML = originalBtnHtml;
+        contactStatus.className = 'contact-status info';
+        contactStatus.innerHTML = `<i class="fa-solid fa-circle-info"></i> ${I18N[curL]['contact.demo_notice']}`;
+      }, 500);
+      return;
+    }
+
+    try {
+      const formData = new FormData(contactForm);
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'Accept': 'application/json'
+        }
+      });
+      const data = await res.json();
+      
+      contactSubmitBtn.disabled = false;
+      contactSubmitBtn.innerHTML = originalBtnHtml;
+      
+      if (data.success) {
+        contactStatus.className = 'contact-status success';
+        contactStatus.innerHTML = `<i class="fa-solid fa-circle-check"></i> ${I18N[curL]['contact.success']}`;
+        contactForm.reset();
+      } else {
+        contactStatus.className = 'contact-status error';
+        contactStatus.textContent = data.message || I18N[curL]['contact.error'];
+      }
+    } catch (err) {
+      contactSubmitBtn.disabled = false;
+      contactSubmitBtn.innerHTML = originalBtnHtml;
+      contactStatus.className = 'contact-status error';
+      contactStatus.textContent = I18N[curL]['contact.error'];
+    }
+  });
+}
+
 loadFeed();
 setLang(localStorage.getItem('lang') || 'ru');
 </script>
-</body>
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a50993c4ae7d6051',t:'MTc5MzAxODkyNg=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>

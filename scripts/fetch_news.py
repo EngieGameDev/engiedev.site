@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Скрипт сбора новостей и медиа для EngieDEV Team
-- Telegram (@gd_engie) -> лента RU с картинками и превью видео
+- Telegram (@gd_engie) -> лента RU с картинками, превью видео и поддержкой GIF
 - Bluesky (engiedev.bsky.social) -> лента EN с картинками и превью видео
 Без API-ключей и ботов — прямо из публичных лент.
 """
@@ -15,7 +15,7 @@ import os
 
 TELEGRAM_CHANNEL = "gd_engie"
 BLUESKY_HANDLE = "engiedev.bsky.social"
-MAX_POSTS = 12
+MAX_POSTS = 15
 
 def fetch_bluesky_news():
     posts = []
@@ -37,15 +37,11 @@ def fetch_bluesky_news():
                 post_url = f"https://bsky.app/profile/{BLUESKY_HANDLE}/post/{rkey}" if rkey else f"https://bsky.app/profile/{BLUESKY_HANDLE}"
                 
                 text = rec.get("text", "").strip()
-                if not text and not post.get("embed"):
-                    continue
-
-                date_str = rec.get("createdAt", "")
+                embed = post.get("embed", {})
                 
                 # Извлекаем медиа (видео, картинки, превью ссылок)
                 media_type = None
                 media_url = None
-                embed = post.get("embed", {})
                 
                 # 1. Прикреплённые картинки
                 if "images" in embed and embed["images"]:
@@ -63,15 +59,24 @@ def fetch_bluesky_news():
                         media_type = "video" if ("youtu" in ext_uri or "vimeo" in ext_uri) else "link"
                         media_url = ext.get("thumb")
 
+                if not text:
+                    if media_type == "video":
+                        text = "New game development video"
+                    elif media_type == "image":
+                        text = "New screenshot from development"
+                    else:
+                        continue
+
                 posts.append({
                     "id": f"bsky_{rkey}",
                     "source": "bluesky",
                     "source_name": "Bluesky",
                     "channel": f"@{BLUESKY_HANDLE}",
                     "url": post_url,
-                    "date": date_str,
+                    "date": rec.get("createdAt", ""),
                     "text": text,
                     "image": media_url,
+                    "video_src": None,
                     "media_type": media_type
                 })
                 
@@ -115,22 +120,30 @@ def fetch_telegram_news():
                     clean_text = re.sub(r'<[^>]+>', '', clean_text)
                     clean_text = html.unescape(clean_text).strip()
                 
-                # Медиа: видео, фото или превью ссылки
+                # Медиа: GIF (зацикленное видео), видео, фото или превью ссылки
                 media_type = None
                 media_url = None
+                video_src = None
                 
-                # 1. Видео превью (tgme_widget_message_video_thumb)
+                # Проверяем, есть ли зацикленное видео (GIF) в Telegram
+                v_tag = re.search(r'<video[^>]*src="([^"]+)"[^>]*>', chunk)
+                is_looping_gif = bool(v_tag and ('loop' in v_tag.group(0) or 'autoplay' in v_tag.group(0)))
+                if v_tag:
+                    video_src = html.unescape(v_tag.group(1))
+
+                # Превью постера
                 v_thumb = re.search(r'tgme_widget_message_video_thumb"[^>]*style="[^"]*background-image:url\(\'([^\']+)\'\)', chunk)
-                # 2. Фото (tgme_widget_message_photo_wrap)
                 p_thumb = re.search(r'tgme_widget_message_photo_wrap"[^>]*style="[^"]*background-image:url\(\'([^\']+)\'\)', chunk)
-                # 3. Превью ссылки (например, YouTube)
                 l_thumb = re.search(r'link_preview_image"[^>]*style="[^"]*background-image:url\(\'([^\']+)\'\)', chunk)
                 if not l_thumb:
                     l_thumb = re.search(r'tgme_widget_message_link_preview"[^>]*style="[^"]*background-image:url\(\'([^\']+)\'\)', chunk)
 
-                if v_thumb:
+                if is_looping_gif:
+                    media_type = "gif"
+                    media_url = v_thumb.group(1) if v_thumb else None
+                elif v_thumb or v_tag:
                     media_type = "video"
-                    media_url = v_thumb.group(1)
+                    media_url = v_thumb.group(1) if v_thumb else None
                 elif p_thumb:
                     media_type = "image"
                     media_url = p_thumb.group(1)
@@ -138,8 +151,15 @@ def fetch_telegram_news():
                     media_type = "link"
                     media_url = l_thumb.group(1)
 
-                if not clean_text and not media_url:
-                    continue
+                if not clean_text:
+                    if media_type == "gif":
+                        clean_text = "Анимация из игры (GIF) 🎮"
+                    elif media_type == "video":
+                        clean_text = "Новое видео разработки 🎮"
+                    elif media_type == "image":
+                        clean_text = "Свежий скриншот разработки"
+                    else:
+                        continue
 
                 posts.append({
                     "id": f"tg_{post_num}",
@@ -150,6 +170,7 @@ def fetch_telegram_news():
                     "date": date_str,
                     "text": clean_text,
                     "image": media_url,
+                    "video_src": video_src,
                     "media_type": media_type
                 })
                 
